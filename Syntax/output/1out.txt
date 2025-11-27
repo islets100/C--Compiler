@@ -493,3 +493,4 @@ CompUnit
           } (})
 
 Analysis Success! Syntax Tree generated.
+    Syntax tree written to output/tree1.txt

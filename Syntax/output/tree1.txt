@@ -1,0 +1,195 @@
+CompUnit
+  UnitList
+    UnitList
+    Unit
+      FuncDef
+        BType
+          int (int)
+        FuncName
+          main (main)
+        ( (()
+        OptFParams
+        ) ())
+        Block
+          { ({)
+          BlockItemList
+            BlockItemList
+              BlockItemList
+                BlockItemList
+                BlockItem
+                  Decl
+                    VarDecl
+                      BType
+                        int (int)
+                      VarDefList
+                        VarDef
+                          ID (a)
+                          = (=)
+                          InitVal
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (1)
+                        , (,)
+                        VarDefList
+                          VarDef
+                            ID (b)
+                            = (=)
+                            InitVal
+                              Exp
+                                LOrExp
+                                  LAndExp
+                                    EqExp
+                                      RelExp
+                                        AddExp
+                                          MulExp
+                                            UnaryExp
+                                              PrimaryExp
+                                                Number
+                                                  INT (2)
+                      ; (;)
+              BlockItem
+                Stmt
+                  LVal
+                    ID (a)
+                  = (=)
+                  Exp
+                    LOrExp
+                      LAndExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              AddExp
+                                AddExp
+                                  MulExp
+                                    UnaryExp
+                                      PrimaryExp
+                                        LVal
+                                          ID (a)
+                                + (+)
+                                MulExp
+                                  UnaryExp
+                                    PrimaryExp
+                                      LVal
+                                        ID (b)
+                              - (-)
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    Number
+                                      INT (1)
+                  ; (;)
+            BlockItem
+              Stmt
+                if (if)
+                ( (()
+                Cond
+                  LOrExp
+                    LAndExp
+                      EqExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    LVal
+                                      ID (a)
+                        == (==)
+                        RelExp
+                          AddExp
+                            MulExp
+                              UnaryExp
+                                PrimaryExp
+                                  Number
+                                    INT (2)
+                ) ())
+                Stmt
+                  Block
+                    { ({)
+                    BlockItemList
+                      BlockItemList
+                      BlockItem
+                        Stmt
+                          return (return)
+                          OptExp
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (0)
+                          ; (;)
+                    } (})
+                else (else)
+                Stmt
+                  Block
+                    { ({)
+                    BlockItemList
+                      BlockItemList
+                        BlockItemList
+                        BlockItem
+                          Stmt
+                            LVal
+                              ID (b)
+                            = (=)
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          MulExp
+                                            MulExp
+                                              MulExp
+                                                UnaryExp
+                                                  PrimaryExp
+                                                    LVal
+                                                      ID (b)
+                                              * (*)
+                                              UnaryExp
+                                                PrimaryExp
+                                                  Number
+                                                    INT (2)
+                                            / (/)
+                                            UnaryExp
+                                              PrimaryExp
+                                                Number
+                                                  INT (1)
+                                          % (%)
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (2)
+                            ; (;)
+                      BlockItem
+                        Stmt
+                          return (return)
+                          OptExp
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (1)
+                          ; (;)
+                    } (})
+          } (})

@@ -1,0 +1,74 @@
+CompUnit
+  UnitList
+    UnitList
+      UnitList
+      Unit
+        Decl
+          VarDecl
+            BType
+              int (int)
+            VarDefList
+              VarDef
+                ID (a)
+                = (=)
+                InitVal
+                  Exp
+                    LOrExp
+                      LAndExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    Number
+                                      INT (10)
+            ; (;)
+    Unit
+      FuncDef
+        BType
+          int (int)
+        FuncName
+          main (main)
+        ( (()
+        OptFParams
+        ) ())
+        Block
+          { ({)
+          BlockItemList
+            BlockItemList
+              BlockItemList
+              BlockItem
+                Stmt
+                  LVal
+                    ID (a)
+                  = (=)
+                  Exp
+                    LOrExp
+                      LAndExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    Number
+                                      INT (10)
+                  ; (;)
+            BlockItem
+              Stmt
+                return (return)
+                OptExp
+                  Exp
+                    LOrExp
+                      LAndExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    Number
+                                      INT (0)
+                ; (;)
+          } (})

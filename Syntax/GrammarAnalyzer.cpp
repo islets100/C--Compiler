@@ -348,7 +348,7 @@ void GrammarAnalyzer::initGrammar() {
     add(NON_OPTFUNCRPARAMS, {SYM_EPSILON});
 
     // 24. unaryOp (+, -) 
-    // 注意: 你的词法表 lex1.txt 和 c--rule词法.md 里暂时没有 '!'
+    // 注意: 暂时没有 '!'
     // 如果需要支持非，需添加 SYM_OP_NOT
     add(NON_UNARYOP, {SYM_OP_PLUS});
     add(NON_UNARYOP, {SYM_OP_MINUS});

@@ -5,12 +5,11 @@
 #include <algorithm>
 #include <cctype>
 
-// 引入你的头文件
 #include "GrammarAnalyzer.h"
 #include "SLRTable.h"
 #include "Parser.h" 
 #include "ReductionSequenceLogger.h"
-// (注意：Parser.h 里现在已经定义了 struct Token)
+// (注意：Parser.h 里已经定义了 struct Token)
 
 using namespace std;
 
@@ -189,7 +188,7 @@ int main() {
     // --- 输入与输出文件名配置 ---
     // 从 lex/output/ 目录读取词法分析结果文件
     // 目前默认读取 lex1.txt，你可以手动改成 lex2.txt / lex3.txt 等
-    string lexFilename = "../lex/output/lex1.txt";
+    string lexFilename = "../lex/output/lex2.txt";
     // 从文件名中提取数字部分，用于生成类似 "1out.txt" 的输出文件名
     string numPart;
     for (char ch : lexFilename) {
