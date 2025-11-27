@@ -1,0 +1,248 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cctype>
+
+// 引入你的头文件
+#include "GrammarAnalyzer.h"
+#include "SLRTable.h"
+#include "Parser.h" 
+// (注意：Parser.h 里现在已经定义了 struct Token)
+
+using namespace std;
+
+// ==========================================
+// 1. 词法文件读取逻辑 (TokenLoader 部分)
+// ==========================================
+
+// 辅助：去除字符串两端空格
+string trim(const string& str) {
+    size_t first = str.find_first_not_of(" \t\r\n");
+    if (string::npos == first) return "";
+    size_t last = str.find_last_not_of(" \t\r\n");
+    return str.substr(first, (last - first + 1));
+}
+
+// 核心映射函数：把 txt 里的 <KW, 1> 变成 SYM_KW_INT
+SymbolType mapTokenToSymbol(string category, int val) {
+    if (category == "KW") {
+        switch(val) {
+            case 1: return SYM_KW_INT;
+            case 2: return SYM_KW_VOID;
+            case 3: return SYM_KW_RETURN;
+            case 4: return SYM_KW_CONST;
+            case 5: return SYM_KW_MAIN;  // 关键：main 关键字
+            case 6: return SYM_KW_FLOAT;
+            case 7: return SYM_KW_IF;
+            case 8: return SYM_KW_ELSE;
+            default: return SYM_ERROR;
+        }
+    }
+    if (category == "OP") {
+        switch(val) {
+            case 9: return SYM_OP_PLUS;
+            case 10: return SYM_OP_MINUS;
+            case 11: return SYM_OP_MUL;
+            case 12: return SYM_OP_DIV;
+            case 13: return SYM_OP_MOD;
+            case 14: return SYM_OP_ASSIGN;
+            case 15: return SYM_OP_GT;
+            case 16: return SYM_OP_LT;
+            case 17: return SYM_OP_EQ;
+            case 18: return SYM_OP_LE;
+            case 19: return SYM_OP_GE;
+            case 20: return SYM_OP_NEQ;
+            case 21: return SYM_OP_AND;
+            case 22: return SYM_OP_OR;
+            default: return SYM_ERROR;
+        }
+    }
+    if (category == "SE") {
+        switch(val) {
+            case 23: return SYM_SE_LPAREN;
+            case 24: return SYM_SE_RPAREN;
+            case 25: return SYM_SE_LBRACE;
+            case 26: return SYM_SE_RBRACE;
+            case 27: return SYM_SE_SEMICN;
+            case 28: return SYM_SE_COMMA;
+            default: return SYM_ERROR;
+        }
+    }
+    if (category == "IDN") return SYM_ID;
+    if (category == "INT") return SYM_INT_CONST;
+    if (category == "FLOAT") return SYM_FLOAT_CONST;
+
+    return SYM_ERROR;
+}
+
+// 读取文件并转换为 Token 列表
+vector<Token> loadTokens(string filename) {
+    vector<Token> tokens;
+    ifstream file(filename);
+    string line;
+    int currentLine = 1;
+
+    if (!file.is_open()) {
+        cerr << "Error: Cannot open " << filename << endl;
+        return tokens;
+    }
+
+    while (getline(file, line)) {
+        // 从后往前找最后一个 '<'，因为标记总是在行尾，这样可以避免文本本身包含 '<' 的情况
+        // 例如：'< <OP,16>' 或 '<= <OP,18>' 这样的行
+        size_t ltPos = line.rfind('<');
+        if (ltPos == string::npos) continue;
+        
+        // 只在尖括号内部查找 ',' 和 '>'
+        size_t gtPos = line.find('>', ltPos + 1);
+        size_t commaPos = line.find(',', ltPos + 1);
+
+        if (gtPos == string::npos || commaPos == string::npos || commaPos > gtPos) {
+            continue;
+        }
+
+        // 处理 标签（文本部分在 '<' 之前）
+        string rawTextPart = line.substr(0, ltPos);
+        size_t sourceTagPos = rawTextPart.find("]");
+        if (sourceTagPos != string::npos) {
+            rawTextPart = rawTextPart.substr(sourceTagPos + 1);
+        }
+        string text = trim(rawTextPart);
+        
+        // 解析 <Type, Value>
+        string typeStr = line.substr(ltPos + 1, commaPos - ltPos - 1); 
+        string valStr = line.substr(commaPos + 1, gtPos - commaPos - 1); 
+        typeStr = trim(typeStr);
+        valStr = trim(valStr);
+        
+        int val = 0;
+        try { val = stoi(valStr); } catch (...) { val = 0; }
+
+        Token t;
+        t.type = mapTokenToSymbol(typeStr, val);
+        t.text = text;
+        t.line = currentLine++;
+        t.category = typeStr;  // 保存原始类别，用于错误报告
+
+        // 调试：如果词法类别无法识别，打印出来看看
+        if (t.type == SYM_ERROR) {
+            cerr << "[LEX DEBUG] Unknown token at source line " << (currentLine - 1)
+                 << ": category='" << typeStr
+                 << "', val='" << valStr
+                 << "', text='" << text << "'" << endl;
+        }
+        
+        // 简单修正 text 为空的情况
+        if (t.text.empty()) {
+            if (t.type == SYM_SE_SEMICN) t.text = ";";
+            else if (t.type == SYM_SE_LPAREN) t.text = "(";
+            else if (t.type == SYM_SE_RPAREN) t.text = ")";
+            else if (t.type == SYM_SE_LBRACE) t.text = "{";
+            else if (t.type == SYM_SE_RBRACE) t.text = "}";
+        }
+
+        tokens.push_back(t);
+    }
+    
+    // 必须添加 EOF 符号，否则语法分析器不知道何时结束
+    tokens.push_back({SYM_EOF, "$", currentLine, "EOF", "EOF"});
+    return tokens;
+}
+
+// ==========================================
+// 2. 主程序
+// ==========================================
+
+int main() {
+    // --- 输入与输出文件名配置 ---
+    // 从 lex/output/ 目录读取词法分析结果文件
+    // 目前默认读取 lex1.txt，你可以手动改成 lex2.txt / lex3.txt 等
+    string lexFilename = "../lex/output/lex1.txt";
+    // 从文件名中提取数字部分，用于生成类似 "1out.txt" 的输出文件名
+    string numPart;
+    for (char ch : lexFilename) {
+        if (isdigit(static_cast<unsigned char>(ch))) numPart.push_back(ch);
+    }
+    if (numPart.empty()) numPart = "out";
+    string outFilename = "output/" + numPart + "out.txt";
+
+    // 将终端输出重定向到对应的 txt 文件
+    ofstream outFile(outFilename);
+    if (!outFile.is_open()) {
+        cerr << "Error: Cannot open output file " << outFilename << endl;
+        return 1;
+    }
+    // 同时重定向 cout / cerr，所有后续终端输出都会写入该文件
+    cout.rdbuf(outFile.rdbuf());
+    cerr.rdbuf(outFile.rdbuf());
+
+    // --- 步骤 1: 准备文法和 SLR 表 ---
+    GrammarAnalyzer ga;
+    cout << "[1] Initializing Grammar..." << endl;
+    ga.initGrammar();
+    ga.buildFirst();
+    ga.buildFollow();
+    // ==========================================
+    // 打印集合，FOLLOW 集和FIRST集
+    // ==========================================
+    cout << "\n[DEBUG] Printing FIRST and FOLLOW sets..." << endl;
+    ga.printSets(); 
+    cout << "---------------------------------------\n" << endl;
+
+    cout << "[3] Building SLR Table..." << endl;
+    SLRTable slr(&ga);
+    slr.buildTable();
+    cout << "    SLR Table generated. Total States: " << slr.states.size() << endl;
+
+    // --- 步骤 2: 读取词法分析结果 ---
+    // 从 lex/output/ 目录读取词法分析结果文件
+    cout << "[3] Loading Tokens from " << lexFilename << "..." << endl;
+    vector<Token> tokens = loadTokens(lexFilename); 
+    
+    if (tokens.size() <= 1) { // 只有 EOF
+        cerr << "Error: No valid tokens found in " << lexFilename << ". Please check the file path or content." << endl;
+        return 1;
+    }
+    cout << "    Loaded " << tokens.size() << " tokens." << endl;
+
+    // --- 步骤 3: 启动语法分析器 ---
+    cout << "[4] Starting Parser..." << endl;
+    Parser parser(&slr, tokens);
+    TreeNode* root = parser.parse();
+
+    // --- 步骤 4: 输出语法树 ---
+    if (root) {
+        cout << "\n================ SYNTAX TREE ================\n";
+        
+        // Lambda 递归打印树
+        auto printTree = [&](TreeNode* node, int depth, auto&& self) -> void {
+            if (!node) return;
+            // 打印缩进
+            for(int i=0; i<depth; i++) cout << "  ";
+            
+            // 打印节点名
+            if (node->symbolId < 50) {
+                // 终结符：打印符号类型和具体的文本值
+                cout << ga.getSymbolName(node->symbolId) << " (" << node->text << ")";
+            } else {
+                // 非终结符：只打印符号类型名
+                cout << ga.getSymbolName(node->symbolId);
+            }
+            cout << endl;
+            
+            for (auto c : node->children) {
+                self(c, depth + 1, self);
+            }
+        };
+        
+        printTree(root, 0, printTree);
+        
+        cout << "\nAnalysis Success! Syntax Tree generated." << endl;
+    } else {
+        cout << "\nAnalysis Failed." << endl;
+    }
+
+    return 0;
+}

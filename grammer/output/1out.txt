@@ -1,0 +1,494 @@
+[1] Initializing Grammar...
+
+[DEBUG] Printing FIRST and FOLLOW sets...
+
+===== FIRST SETS =====
+Program        : { eps int void const float }
+CompUnit       : { eps int void const float }
+UnitList       : { eps int void const float }
+Unit           : { int void const float }
+Decl           : { int const float }
+ConstDecl      : { const }
+VarDecl        : { int float }
+ConstDefList   : { ID }
+BType          : { int float }
+ConstDef       : { ID }
+ConstInit      : { ID INT FLOAT + - ( }
+VarDefList     : { ID }
+VarDef         : { ID }
+InitVal        : { ID INT FLOAT + - ( }
+FuncDef        : { int void float }
+FuncName       : { ID main }
+OptFParams     : { eps int float }
+FuncType       : { void }
+FuncFParams    : { int float }
+FuncFParam     : { int float }
+Block          : { { }
+BlockItemList  : { eps ID INT FLOAT int return const float if + - ( { ; }
+BlockItem      : { ID INT FLOAT int return const float if + - ( { ; }
+Stmt           : { ID INT FLOAT return if + - ( { ; }
+OptExp         : { eps ID INT FLOAT + - ( }
+Exp            : { ID INT FLOAT + - ( }
+Cond           : { ID INT FLOAT + - ( }
+LVal           : { ID }
+PrimaryExp     : { ID INT FLOAT ( }
+Number         : { INT FLOAT }
+UnaryExp       : { ID INT FLOAT + - ( }
+OptRParams     : { eps ID INT FLOAT + - ( }
+UnaryOp        : { + - }
+FuncRParams    : { ID INT FLOAT + - ( }
+MulExp         : { ID INT FLOAT + - ( }
+AddExp         : { ID INT FLOAT + - ( }
+RelExp         : { ID INT FLOAT + - ( }
+EqExp          : { ID INT FLOAT + - ( }
+LAndExp        : { ID INT FLOAT + - ( }
+LOrExp         : { ID INT FLOAT + - ( }
+ConstExp       : { ID INT FLOAT + - ( }
+
+===== FOLLOW SETS =====
+Program        : { $ }
+CompUnit       : { $ }
+UnitList       : { $ int void const float }
+Unit           : { $ int void const float }
+Decl           : { $ ID INT FLOAT int void return const float if + - ( { } ; }
+ConstDecl      : { $ ID INT FLOAT int void return const float if + - ( { } ; }
+VarDecl        : { $ ID INT FLOAT int void return const float if + - ( { } ; }
+ConstDefList   : { ; }
+BType          : { ID main }
+ConstDef       : { ; , }
+ConstInit      : { ; , }
+VarDefList     : { ; }
+VarDef         : { ; , }
+InitVal        : { ; , }
+FuncDef        : { $ int void const float }
+FuncName       : { ( }
+OptFParams     : { ) }
+FuncType       : { ID main }
+FuncFParams    : { ) , }
+FuncFParam     : { ) , }
+Block          : { $ ID INT FLOAT int void return const float if else + - ( { } ; }
+BlockItemList  : { ID INT FLOAT int return const float if + - ( { } ; }
+BlockItem      : { ID INT FLOAT int return const float if + - ( { } ; }
+Stmt           : { ID INT FLOAT int return const float if else + - ( { } ; }
+OptExp         : { ; }
+Exp            : { ) ; , }
+Cond           : { ) }
+LVal           : { + - * / % = > < == <= >= != && || ) ; , }
+PrimaryExp     : { + - * / % > < == <= >= != && || ) ; , }
+Number         : { + - * / % > < == <= >= != && || ) ; , }
+UnaryExp       : { + - * / % > < == <= >= != && || ) ; , }
+OptRParams     : { ) }
+UnaryOp        : { ID INT FLOAT + - ( }
+FuncRParams    : { ) , }
+MulExp         : { + - * / % > < == <= >= != && || ) ; , }
+AddExp         : { + - > < == <= >= != && || ) ; , }
+RelExp         : { > < == <= >= != && || ) ; , }
+EqExp          : { == != && || ) ; , }
+LAndExp        : { && || ) ; , }
+LOrExp         : { || ) ; , }
+ConstExp       : { ; , }
+---------------------------------------
+
+[3] Building SLR Table...
+    SLR Table generated. Total States: 132
+[3] Loading Tokens from ../lex/output/lex1.txt...
+    Loaded 51 tokens.
+[4] Starting Parser...
+
+================ PARSING PROCESS ================
+Step	State	Input	Action
+1	0	int	Reduce 4 (UnitList -> ...)
+2	2	int	Shift 3
+3	3	main	Reduce 12 (BType -> ...)
+4	11	main	Shift 16
+5	16	(	Reduce 25 (FuncName -> ...)
+6	19	(	Shift 28
+7	28	)	Reduce 27 (OptFParams -> ...)
+8	55	)	Shift 80
+9	80	{	Shift 100
+10	100	int	Reduce 34 (BlockItemList -> ...)
+11	106	int	Shift 3
+12	3	ID	Reduce 12 (BType -> ...)
+13	112	ID	Shift 52
+14	52	=	Shift 25
+15	25	INT	Shift 34
+16	34	,	Reduce 51 (Number -> ...)
+17	43	,	Reduce 50 (PrimaryExp -> ...)
+18	42	,	Reduce 53 (UnaryExp -> ...)
+19	44	,	Reduce 62 (MulExp -> ...)
+20	46	,	Reduce 66 (AddExp -> ...)
+21	47	,	Reduce 69 (RelExp -> ...)
+22	48	,	Reduce 74 (EqExp -> ...)
+23	49	,	Reduce 77 (LAndExp -> ...)
+24	50	,	Reduce 79 (LOrExp -> ...)
+25	51	,	Reduce 45 (Exp -> ...)
+26	40	,	Reduce 21 (InitVal -> ...)
+27	39	,	Reduce 20 (VarDef -> ...)
+28	18	,	Shift 27
+29	27	ID	Shift 52
+30	52	=	Shift 25
+31	25	INT	Shift 34
+32	34	;	Reduce 51 (Number -> ...)
+33	43	;	Reduce 50 (PrimaryExp -> ...)
+34	42	;	Reduce 53 (UnaryExp -> ...)
+35	44	;	Reduce 62 (MulExp -> ...)
+36	46	;	Reduce 66 (AddExp -> ...)
+37	47	;	Reduce 69 (RelExp -> ...)
+38	48	;	Reduce 74 (EqExp -> ...)
+39	49	;	Reduce 77 (LAndExp -> ...)
+40	50	;	Reduce 79 (LOrExp -> ...)
+41	51	;	Reduce 45 (Exp -> ...)
+42	40	;	Reduce 21 (InitVal -> ...)
+43	39	;	Reduce 20 (VarDef -> ...)
+44	18	;	Reduce 17 (VarDefList -> ...)
+45	53	;	Reduce 18 (VarDefList -> ...)
+46	17	;	Shift 26
+47	26	ID	Reduce 16 (VarDecl -> ...)
+48	10	ID	Reduce 8 (Decl -> ...)
+49	111	ID	Reduce 35 (BlockItem -> ...)
+50	114	ID	Reduce 33 (BlockItemList -> ...)
+51	106	ID	Shift 33
+52	33	=	Reduce 47 (LVal -> ...)
+53	118	=	Shift 122
+54	122	ID	Shift 33
+55	33	+	Reduce 47 (LVal -> ...)
+56	41	+	Reduce 49 (PrimaryExp -> ...)
+57	42	+	Reduce 53 (UnaryExp -> ...)
+58	44	+	Reduce 62 (MulExp -> ...)
+59	46	+	Reduce 66 (AddExp -> ...)
+60	47	+	Shift 69
+61	69	ID	Shift 33
+62	33	-	Reduce 47 (LVal -> ...)
+63	41	-	Reduce 49 (PrimaryExp -> ...)
+64	42	-	Reduce 53 (UnaryExp -> ...)
+65	44	-	Reduce 62 (MulExp -> ...)
+66	90	-	Reduce 67 (AddExp -> ...)
+67	47	-	Shift 70
+68	70	INT	Shift 34
+69	34	;	Reduce 51 (Number -> ...)
+70	43	;	Reduce 50 (PrimaryExp -> ...)
+71	42	;	Reduce 53 (UnaryExp -> ...)
+72	44	;	Reduce 62 (MulExp -> ...)
+73	91	;	Reduce 68 (AddExp -> ...)
+74	47	;	Reduce 69 (RelExp -> ...)
+75	48	;	Reduce 74 (EqExp -> ...)
+76	49	;	Reduce 77 (LAndExp -> ...)
+77	50	;	Reduce 79 (LOrExp -> ...)
+78	51	;	Reduce 45 (Exp -> ...)
+79	126	;	Shift 128
+80	128	if	Reduce 37 (Stmt -> ...)
+81	115	if	Reduce 36 (BlockItem -> ...)
+82	114	if	Reduce 33 (BlockItemList -> ...)
+83	106	if	Shift 109
+84	109	(	Shift 120
+85	120	ID	Shift 33
+86	33	==	Reduce 47 (LVal -> ...)
+87	41	==	Reduce 49 (PrimaryExp -> ...)
+88	42	==	Reduce 53 (UnaryExp -> ...)
+89	44	==	Reduce 62 (MulExp -> ...)
+90	46	==	Reduce 66 (AddExp -> ...)
+91	47	==	Reduce 69 (RelExp -> ...)
+92	48	==	Reduce 74 (EqExp -> ...)
+93	49	==	Shift 75
+94	75	INT	Shift 34
+95	34	)	Reduce 51 (Number -> ...)
+96	43	)	Reduce 50 (PrimaryExp -> ...)
+97	42	)	Reduce 53 (UnaryExp -> ...)
+98	44	)	Reduce 62 (MulExp -> ...)
+99	46	)	Reduce 66 (AddExp -> ...)
+100	47	)	Reduce 69 (RelExp -> ...)
+101	96	)	Reduce 75 (EqExp -> ...)
+102	49	)	Reduce 77 (LAndExp -> ...)
+103	50	)	Reduce 79 (LOrExp -> ...)
+104	125	)	Reduce 46 (Cond -> ...)
+105	124	)	Shift 127
+106	127	{	Shift 100
+107	100	return	Reduce 34 (BlockItemList -> ...)
+108	106	return	Shift 108
+109	108	INT	Shift 34
+110	34	;	Reduce 51 (Number -> ...)
+111	43	;	Reduce 50 (PrimaryExp -> ...)
+112	42	;	Reduce 53 (UnaryExp -> ...)
+113	44	;	Reduce 62 (MulExp -> ...)
+114	46	;	Reduce 66 (AddExp -> ...)
+115	47	;	Reduce 69 (RelExp -> ...)
+116	48	;	Reduce 74 (EqExp -> ...)
+117	49	;	Reduce 77 (LAndExp -> ...)
+118	50	;	Reduce 79 (LOrExp -> ...)
+119	51	;	Reduce 45 (Exp -> ...)
+120	117	;	Reduce 43 (OptExp -> ...)
+121	119	;	Shift 123
+122	123	}	Reduce 40 (Stmt -> ...)
+123	115	}	Reduce 36 (BlockItem -> ...)
+124	114	}	Reduce 33 (BlockItemList -> ...)
+125	106	}	Shift 110
+126	110	else	Reduce 32 (Block -> ...)
+127	113	else	Reduce 39 (Stmt -> ...)
+128	129	else	Shift 130
+129	130	{	Shift 100
+130	100	ID	Reduce 34 (BlockItemList -> ...)
+131	106	ID	Shift 33
+132	33	=	Reduce 47 (LVal -> ...)
+133	118	=	Shift 122
+134	122	ID	Shift 33
+135	33	*	Reduce 47 (LVal -> ...)
+136	41	*	Reduce 49 (PrimaryExp -> ...)
+137	42	*	Reduce 53 (UnaryExp -> ...)
+138	44	*	Reduce 62 (MulExp -> ...)
+139	46	*	Shift 66
+140	66	INT	Shift 34
+141	34	/	Reduce 51 (Number -> ...)
+142	43	/	Reduce 50 (PrimaryExp -> ...)
+143	42	/	Reduce 53 (UnaryExp -> ...)
+144	87	/	Reduce 63 (MulExp -> ...)
+145	46	/	Shift 67
+146	67	INT	Shift 34
+147	34	%	Reduce 51 (Number -> ...)
+148	43	%	Reduce 50 (PrimaryExp -> ...)
+149	42	%	Reduce 53 (UnaryExp -> ...)
+150	88	%	Reduce 64 (MulExp -> ...)
+151	46	%	Shift 68
+152	68	INT	Shift 34
+153	34	;	Reduce 51 (Number -> ...)
+154	43	;	Reduce 50 (PrimaryExp -> ...)
+155	42	;	Reduce 53 (UnaryExp -> ...)
+156	89	;	Reduce 65 (MulExp -> ...)
+157	46	;	Reduce 66 (AddExp -> ...)
+158	47	;	Reduce 69 (RelExp -> ...)
+159	48	;	Reduce 74 (EqExp -> ...)
+160	49	;	Reduce 77 (LAndExp -> ...)
+161	50	;	Reduce 79 (LOrExp -> ...)
+162	51	;	Reduce 45 (Exp -> ...)
+163	126	;	Shift 128
+164	128	return	Reduce 37 (Stmt -> ...)
+165	115	return	Reduce 36 (BlockItem -> ...)
+166	114	return	Reduce 33 (BlockItemList -> ...)
+167	106	return	Shift 108
+168	108	INT	Shift 34
+169	34	;	Reduce 51 (Number -> ...)
+170	43	;	Reduce 50 (PrimaryExp -> ...)
+171	42	;	Reduce 53 (UnaryExp -> ...)
+172	44	;	Reduce 62 (MulExp -> ...)
+173	46	;	Reduce 66 (AddExp -> ...)
+174	47	;	Reduce 69 (RelExp -> ...)
+175	48	;	Reduce 74 (EqExp -> ...)
+176	49	;	Reduce 77 (LAndExp -> ...)
+177	50	;	Reduce 79 (LOrExp -> ...)
+178	51	;	Reduce 45 (Exp -> ...)
+179	117	;	Reduce 43 (OptExp -> ...)
+180	119	;	Shift 123
+181	123	}	Reduce 40 (Stmt -> ...)
+182	115	}	Reduce 36 (BlockItem -> ...)
+183	114	}	Reduce 33 (BlockItemList -> ...)
+184	106	}	Shift 110
+185	110	}	Reduce 32 (Block -> ...)
+186	113	}	Reduce 39 (Stmt -> ...)
+187	131	}	Reduce 42 (Stmt -> ...)
+188	115	}	Reduce 36 (BlockItem -> ...)
+189	114	}	Reduce 33 (BlockItemList -> ...)
+190	106	}	Shift 110
+191	110	$	Reduce 32 (Block -> ...)
+192	101	$	Reduce 23 (FuncDef -> ...)
+193	12	$	Reduce 6 (Unit -> ...)
+194	7	$	Reduce 3 (UnitList -> ...)
+195	2	$	Reduce 2 (CompUnit -> ...)
+196	1	$	ACCEPT!
+
+================ SYNTAX TREE ================
+CompUnit
+  UnitList
+    UnitList
+    Unit
+      FuncDef
+        BType
+          int (int)
+        FuncName
+          main (main)
+        ( (()
+        OptFParams
+        ) ())
+        Block
+          { ({)
+          BlockItemList
+            BlockItemList
+              BlockItemList
+                BlockItemList
+                BlockItem
+                  Decl
+                    VarDecl
+                      BType
+                        int (int)
+                      VarDefList
+                        VarDef
+                          ID (a)
+                          = (=)
+                          InitVal
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (1)
+                        , (,)
+                        VarDefList
+                          VarDef
+                            ID (b)
+                            = (=)
+                            InitVal
+                              Exp
+                                LOrExp
+                                  LAndExp
+                                    EqExp
+                                      RelExp
+                                        AddExp
+                                          MulExp
+                                            UnaryExp
+                                              PrimaryExp
+                                                Number
+                                                  INT (2)
+                      ; (;)
+              BlockItem
+                Stmt
+                  LVal
+                    ID (a)
+                  = (=)
+                  Exp
+                    LOrExp
+                      LAndExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              AddExp
+                                AddExp
+                                  MulExp
+                                    UnaryExp
+                                      PrimaryExp
+                                        LVal
+                                          ID (a)
+                                + (+)
+                                MulExp
+                                  UnaryExp
+                                    PrimaryExp
+                                      LVal
+                                        ID (b)
+                              - (-)
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    Number
+                                      INT (1)
+                  ; (;)
+            BlockItem
+              Stmt
+                if (if)
+                ( (()
+                Cond
+                  LOrExp
+                    LAndExp
+                      EqExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    LVal
+                                      ID (a)
+                        == (==)
+                        RelExp
+                          AddExp
+                            MulExp
+                              UnaryExp
+                                PrimaryExp
+                                  Number
+                                    INT (2)
+                ) ())
+                Stmt
+                  Block
+                    { ({)
+                    BlockItemList
+                      BlockItemList
+                      BlockItem
+                        Stmt
+                          return (return)
+                          OptExp
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (0)
+                          ; (;)
+                    } (})
+                else (else)
+                Stmt
+                  Block
+                    { ({)
+                    BlockItemList
+                      BlockItemList
+                        BlockItemList
+                        BlockItem
+                          Stmt
+                            LVal
+                              ID (b)
+                            = (=)
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          MulExp
+                                            MulExp
+                                              MulExp
+                                                UnaryExp
+                                                  PrimaryExp
+                                                    LVal
+                                                      ID (b)
+                                              * (*)
+                                              UnaryExp
+                                                PrimaryExp
+                                                  Number
+                                                    INT (2)
+                                            / (/)
+                                            UnaryExp
+                                              PrimaryExp
+                                                Number
+                                                  INT (1)
+                                          % (%)
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (2)
+                            ; (;)
+                      BlockItem
+                        Stmt
+                          return (return)
+                          OptExp
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
+                                                INT (1)
+                          ; (;)
+                    } (})
+          } (})
+
+Analysis Success! Syntax Tree generated.
