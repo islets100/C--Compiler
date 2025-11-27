@@ -7,6 +7,9 @@
 #include <stack>
 #include <string>
 
+// 前向声明
+class ReductionSequenceLogger;
+
 using namespace std;
 
 // 1. 在这里定义 Token 结构体，供 main.cpp 和 Parser.cpp 共同使用
@@ -18,6 +21,9 @@ struct Token {
     string category;   // 原始类别 (如 "KW", "OP", "IDN") - 用于错误报告
 };
 
+// 前向声明
+class ReductionSequenceLogger;
+
 class Parser {
 public:
     SLRTable* slrTable;
@@ -27,9 +33,12 @@ public:
     stack<int> stateStack;
     // 节点栈 (用于构建语法树)
     stack<TreeNode*> nodeStack;
+    
+    // 可选的规约序列记录器（隔离处理，不影响核心逻辑）
+    ReductionSequenceLogger* sequenceLogger;
 
     Parser(SLRTable* table, vector<Token> inputTokens) 
-        : slrTable(table), tokens(inputTokens) {}
+        : slrTable(table), tokens(inputTokens), sequenceLogger(nullptr) {}
 
     // 执行分析
     TreeNode* parse();

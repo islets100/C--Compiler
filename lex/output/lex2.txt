@@ -120,13 +120,6 @@ x	<IDN,x>
 y	<IDN,y>
 )	<SE,24>
 ;	<SE,27>
-^	<ERROR,20,3>
-&	<ERROR,21,3>
-:	<ERROR,22,3>
-?	<ERROR,22,5>
-!	<ERROR,22,7>
-!=	<OP,20>
-|	<ERROR,22,12>
 return	<KW,3>
 ;	<SE,27>
 }	<SE,26>

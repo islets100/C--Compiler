@@ -9,6 +9,7 @@
 #include "GrammarAnalyzer.h"
 #include "SLRTable.h"
 #include "Parser.h" 
+#include "ReductionSequenceLogger.h"
 // (注意：Parser.h 里现在已经定义了 struct Token)
 
 using namespace std;
@@ -238,8 +239,22 @@ int main() {
 
     // --- 步骤 3: 启动语法分析器 ---
     cout << "[4] Starting Parser..." << endl;
+    
+    // 创建规约序列记录器（隔离处理，不影响核心逻辑）
+    ReductionSequenceLogger sequenceLogger(&ga);
     Parser parser(&slr, tokens);
+    parser.sequenceLogger = &sequenceLogger;  // 设置 logger
+    
     TreeNode* root = parser.parse();
+    
+    // 输出规约序列到 syntax1.txt 文件（无论解析成功或失败都要输出）
+    string syntaxFilename = "output/syntax" + numPart + ".txt";
+    sequenceLogger.writeToFile(syntaxFilename);
+    if (root) {
+        cout << "    Reduction sequence written to " << syntaxFilename << endl;
+    } else {
+        cerr << "    Reduction sequence (with error) written to " << syntaxFilename << endl;
+    }
 
     // --- 步骤 4: 输出语法树 ---
     if (root) {
