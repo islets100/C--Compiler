@@ -314,44 +314,129 @@ void lexcial(const char* address, FA DFA , string x){
     if(Test_sample.is_open() && record_tokens.is_open()){ //先判断文件是否正确打开
         char ch;    //字符变量，存储最新读入的源程序字符
         string buf; //缓冲区
+        int lineNumber = 0;  // 行号计数器
         while (getline(Test_sample,buf)){ //不断读入数据到缓冲区
+            lineNumber++;
             int current_state = *DFA.start.begin();
             string strToken = "";
             for( int i=0; i < buf.length() ; i++ ){ //遍历缓冲区的每一个元素
                 ch = buf[i];
-                while (!GetBC(ch)){ 
+                while (i < buf.length() && !GetBC(ch)){ 
                     i++;
-                    ch=buf[i];
+                    if(i < buf.length()) ch=buf[i];
+                    else break;
                 }
-                char ch_type = GetCharType(ch, buf[i+1]);
+                if(i >= buf.length()) break;
+                
+                char ch_type = GetCharType(ch, (i+1 < buf.length()) ? buf[i+1] : '\0');
                 transform_map State_Transfer;
+                bool found_transition = false;
+                bool error_handled = false;  // 标记是否已经处理为错误
+                int saved_state = current_state;
+                string saved_token = strToken;
+                
                 for(set<transform_map>::iterator j = DFA.trans_map.begin(); j != DFA.trans_map.end();j++){ //循环查看当前是否满足对应关系
                     State_Transfer = *j;
                     if((current_state == State_Transfer.now) && (ch_type == State_Transfer.rec)){
                         current_state = State_Transfer.next;
                         strToken.append(1,ch);
+                        found_transition = true;
                         if(DFA.final.count(current_state)){     //当前是终态时需要进行超前搜索
                             int next_state = -1;
                             transform_map next_State_Transfer;
+                            char next_ch_type = (i+1 < buf.length()) ? GetCharType(buf[i+1], (i+2 < buf.length()) ? buf[i+2] : '\0') : '\0';
                             for(set<transform_map>::iterator k = DFA.trans_map.begin(); k != DFA.trans_map.end();k++){  //对于超前搜索的，循环查看当前是否满足对应关系
                                 next_State_Transfer = *k;
-                                if((current_state == next_State_Transfer.now) && (GetCharType(buf[i+1],buf[i+2]) == next_State_Transfer.rec)) {
+                                if((current_state == next_State_Transfer.now) && (next_ch_type == next_State_Transfer.rec)) {
                                     next_state = next_State_Transfer.next;
                                     break;
                                 }
                             }
                             if(!DFA.final.count(next_state)){
-                                cout << strToken << " " << Get_Tokens(current_state,strToken,DFA) << endl;
-                                record_tokens << strToken << " " << Get_Tokens(current_state,strToken,DFA) << endl;
+                                cout << strToken << "\t" << Get_Tokens(current_state,strToken,DFA) << endl;
+                                record_tokens << strToken << "\t" << Get_Tokens(current_state,strToken,DFA) << endl;
                                 Generate_symbol_table(current_state,strToken,DFA);
                                 current_state = *DFA.start.begin();
                                 strToken = "";
+                            }
+                        } else {
+                            // 不是终态，需要检查下一个字符是否可以继续转换
+                            bool can_continue = false;
+                            if (i+1 < buf.length()) {
+                                char next_ch = buf[i+1];
+                                // 如果下一个字符是空白符，无法继续转换
+                                if (GetBC(next_ch)) {
+                                    char next_ch_type = GetCharType(next_ch, (i+2 < buf.length()) ? buf[i+2] : '\0');
+                                    transform_map next_State_Transfer;
+                                    for(set<transform_map>::iterator k = DFA.trans_map.begin(); k != DFA.trans_map.end();k++){
+                                        next_State_Transfer = *k;
+                                        if((current_state == next_State_Transfer.now) && (next_ch_type == next_State_Transfer.rec)) {
+                                            can_continue = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            // 如果无法继续转换且不是终态（下一个字符是空白或行尾），回退并处理为错误
+                            if (!can_continue) {
+                                // 回退：不消耗当前字符，重置状态
+                                current_state = saved_state;
+                                strToken = saved_token;
+                                found_transition = false;
+                                // 输出错误（如果之前有未完成的token，先处理它）
+                                if(!saved_token.empty() && saved_state != *DFA.start.begin() && DFA.final.count(saved_state)) {
+                                    cout << saved_token << "\t" << Get_Tokens(saved_state,saved_token,DFA) << endl;
+                                    record_tokens << saved_token << "\t" << Get_Tokens(saved_state,saved_token,DFA) << endl;
+                                    Generate_symbol_table(saved_state,saved_token,DFA);
+                                }
+                                // 当前字符作为错误处理
+                                string errorChar(1, ch);
+                                int columnNumber = i + 1;
+                                cout << errorChar << "\t<ERROR," << lineNumber << "," << columnNumber << ">" << endl;
+                                record_tokens << errorChar << "\t<ERROR," << lineNumber << "," << columnNumber << ">" << endl;
+                                current_state = *DFA.start.begin();
+                                strToken = "";
+                                error_handled = true;  // 标记已处理为错误
                             }
                         }
                         break;
                     }
                 }
-            }  
+                
+                // 如果找不到匹配的转换，且当前字符不是空白符，且未处理为错误，则认为是错误字符
+                if(!found_transition && !error_handled && GetBC(ch)) {
+                    // 先处理之前可能未完成的 token（如果有）
+                    if(!strToken.empty() && current_state != *DFA.start.begin()) {
+                        // 尝试处理未完成的 token
+                        if(DFA.final.count(current_state)) {
+                            cout << strToken << "\t" << Get_Tokens(current_state,strToken,DFA) << endl;
+                            record_tokens << strToken << "\t" << Get_Tokens(current_state,strToken,DFA) << endl;
+                            Generate_symbol_table(current_state,strToken,DFA);
+                        }
+                        current_state = *DFA.start.begin();
+                        strToken = "";
+                    }
+                    
+                    // 输出错误字符，格式：[非法符号][TAB]<ERROR,[行号],[列号]>
+                    // 列号是原始行中的位置（从1开始），即 i+1
+                    string errorChar(1, ch);
+                    int columnNumber = i + 1;  // 列号从1开始计数
+                    cout << errorChar << "\t<ERROR," << lineNumber << "," << columnNumber << ">" << endl;
+                    record_tokens << errorChar << "\t<ERROR," << lineNumber << "," << columnNumber << ">" << endl;
+                    // 重置状态，继续处理下一个字符
+                    current_state = *DFA.start.begin();
+                    strToken = "";
+                }
+            }
+            
+            // 处理行末未完成的 token
+            if(!strToken.empty() && current_state != *DFA.start.begin()) {
+                if(DFA.final.count(current_state)) {
+                    cout << strToken << "\t" << Get_Tokens(current_state,strToken,DFA) << endl;
+                    record_tokens << strToken << "\t" << Get_Tokens(current_state,strToken,DFA) << endl;
+                    Generate_symbol_table(current_state,strToken,DFA);
+                }
+            }
         }
     }
     else {                     //未能成功打开则输出错误信息

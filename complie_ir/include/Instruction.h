@@ -176,7 +176,7 @@ public:
            ((int)get_num_operand() == 2);
   }
 
-  virtual bool isStaticCalculable();
+  virtual bool isStaticCalculable() { return false; }
 
   virtual int calculate() { return 0; }
 
@@ -237,9 +237,9 @@ public:
 
   virtual std::string print() override;
 
-  int calculate() final;
+  virtual int calculate() override;
 
-  bool isStaticCalculable() final;
+  virtual bool isStaticCalculable() override;
 
 private:
   void assertValid();
@@ -267,9 +267,9 @@ public:
 
   CmpOp get_cmp_op() { return cmp_op_; }
 
-  bool isStaticCalculable() final;
+  virtual bool isStaticCalculable() override;
 
-  int calculate() final;
+  virtual int calculate() override;
 
   virtual CmpInst *deepcopy(BasicBlock *parent) override {
     // 复制基本信息

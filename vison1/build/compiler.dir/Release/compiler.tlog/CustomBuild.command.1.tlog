@@ -1,0 +1,10 @@
+^F:\25261-COMPILER-LABS\FINALLAB\CMAKELISTS.TXT
+setlocal
+F:\SOFTWARE\Cmake\bin\cmake.exe -SF:/25261-compiler-labs/Finallab -BF:/25261-compiler-labs/Finallab/build --check-stamp-file F:/25261-compiler-labs/Finallab/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

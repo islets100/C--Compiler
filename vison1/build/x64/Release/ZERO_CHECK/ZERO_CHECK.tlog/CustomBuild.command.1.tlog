@@ -1,0 +1,10 @@
+^F:\25261-COMPILER-LABS\FINALLAB\BUILD\CMAKEFILES\06F12FC6DE260D161DF127F9B933FB3C\GENERATE.STAMP.RULE
+setlocal
+F:\SOFTWARE\Cmake\bin\cmake.exe -SF:/25261-compiler-labs/Finallab -BF:/25261-compiler-labs/Finallab/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file F:/25261-compiler-labs/Finallab/build/SysyCompiler.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
