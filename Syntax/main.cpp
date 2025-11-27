@@ -189,7 +189,7 @@ int main() {
     // --- 输入与输出文件名配置 ---
     // 从 lex/output/ 目录读取词法分析结果文件
     // 目前默认读取 lex1.txt，你可以手动改成 lex2.txt / lex3.txt 等
-    string lexFilename = "../lex/output/lex2.txt";
+    string lexFilename = "../lex/output/lex1.txt";
     // 从文件名中提取数字部分，用于生成类似 "1out.txt" 的输出文件名
     string numPart;
     for (char ch : lexFilename) {
@@ -258,32 +258,52 @@ int main() {
 
     // --- 步骤 4: 输出语法树 ---
     if (root) {
-        cout << "\n================ SYNTAX TREE ================\n";
+        // 创建单独的语法树输出文件
+        string treeFilename = "output/tree" + numPart + ".txt";
+        ofstream treeFile(treeFilename);
+        if (!treeFile.is_open()) {
+            cerr << "Error: Cannot open tree output file " << treeFilename << endl;
+        }
         
-        // Lambda 递归打印树
+        // Lambda 递归打印树（同时输出到 cout 和 treeFile）
         auto printTree = [&](TreeNode* node, int depth, auto&& self) -> void {
             if (!node) return;
             // 打印缩进
-            for(int i=0; i<depth; i++) cout << "  ";
+            string indent;
+            for(int i=0; i<depth; i++) indent += "  ";
             
-            // 打印节点名
+            // 构建节点字符串
+            string nodeStr;
             if (node->symbolId < 50) {
                 // 终结符：打印符号类型和具体的文本值
-                cout << ga.getSymbolName(node->symbolId) << " (" << node->text << ")";
+                nodeStr = ga.getSymbolName(node->symbolId) + " (" + node->text + ")";
             } else {
                 // 非终结符：只打印符号类型名
-                cout << ga.getSymbolName(node->symbolId);
+                nodeStr = ga.getSymbolName(node->symbolId);
             }
-            cout << endl;
+            
+            // 同时输出到 cout（写入 1out.txt）和 treeFile（写入 tree1.txt）
+            cout << indent << nodeStr << endl;
+            if (treeFile.is_open()) {
+                treeFile << indent << nodeStr << endl;
+            }
             
             for (auto c : node->children) {
                 self(c, depth + 1, self);
             }
         };
         
+        // 输出到原文件（包含分隔行）
+        cout << "\n================ SYNTAX TREE ================\n";
+        
+        // tree 文件直接输出树内容，不包含分隔行
         printTree(root, 0, printTree);
         
         cout << "\nAnalysis Success! Syntax Tree generated." << endl;
+        if (treeFile.is_open()) {
+            treeFile.close();
+            cout << "    Syntax tree written to " << treeFilename << endl;
+        }
     } else {
         cout << "\nAnalysis Failed." << endl;
     }

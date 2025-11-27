@@ -293,6 +293,7 @@ Step	State	Input	Action
 194	7	$	Reduce 3 (UnitList -> ...)
 195	2	$	Reduce 2 (CompUnit -> ...)
 196	1	$	ACCEPT!
+    Reduction sequence written to output/syntax1.txt
 
 ================ SYNTAX TREE ================
 CompUnit
