@@ -21,6 +21,38 @@ TreeNode* Parser::parse() {
         Token currentToken = tokens[ip];
         int symbolId = currentToken.type;
 
+        // ========== 处理词法错误（ERROR标记）==========
+        // 如果是词法分析阶段识别的错误字符（ERROR标记），跳过并继续分析
+        if (symbolId == SYM_ERROR && currentToken.category.find("ERROR") == 0) {
+            // 从category中提取列号信息（格式为 "ERROR:列号"）
+            int errorCol = 0;
+            size_t colonPos = currentToken.category.find(':');
+            if (colonPos != string::npos) {
+                try {
+                    errorCol = stoi(currentToken.category.substr(colonPos + 1));
+                } catch (...) {}
+            }
+            
+            if (errorCol > 0) {
+                cerr << "\n[词法错误] 行号 " << currentToken.line 
+                     << ", 列号 " << errorCol
+                     << ": 无法识别的字符 '" << currentToken.text << "'" << endl;
+            } else {
+                cerr << "\n[词法错误] 行号 " << currentToken.line 
+                     << ": 无法识别的字符 '" << currentToken.text << "'" << endl;
+            }
+            cerr << "          该字符将被跳过，继续分析后续内容。" << endl;
+            
+            // 跳过这个错误token，继续分析下一个
+            ip++;
+            // 检查是否到达文件末尾
+            if (ip >= tokens.size()) {
+                cerr << "\n错误: 在跳过错误字符后到达文件末尾，无法完成语法分析。" << endl;
+                return nullptr;
+            }
+            continue;  // 继续分析下一个token
+        }
+
         // 查找动作
         if (slrTable->actionTable.find(currentState) == slrTable->actionTable.end() ||
             slrTable->actionTable[currentState].find(symbolId) == slrTable->actionTable[currentState].end()) {

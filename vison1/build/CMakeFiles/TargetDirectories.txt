@@ -1,3 +1,0 @@
-F:/25261-compiler-labs/Finallab/build/CMakeFiles/compiler.dir
-F:/25261-compiler-labs/Finallab/build/CMakeFiles/ALL_BUILD.dir
-F:/25261-compiler-labs/Finallab/build/CMakeFiles/ZERO_CHECK.dir

@@ -111,10 +111,39 @@ vector<Token> loadTokens(string filename) {
         }
         string text = trim(rawTextPart);
         
-        // 解析 <Type, Value>
+        // 解析 <Type, Value> 或 <ERROR,行号,列号>
         string typeStr = line.substr(ltPos + 1, commaPos - ltPos - 1); 
-        string valStr = line.substr(commaPos + 1, gtPos - commaPos - 1); 
         typeStr = trim(typeStr);
+        
+        // 检查是否是 ERROR 类型（格式为 <ERROR,行号,列号>）
+        if (typeStr == "ERROR") {
+            // ERROR 格式：<ERROR,行号,列号>
+            // 需要找到第二个逗号
+            size_t secondCommaPos = line.find(',', commaPos + 1);
+            if (secondCommaPos != string::npos && secondCommaPos < gtPos) {
+                string lineNumStr = line.substr(commaPos + 1, secondCommaPos - commaPos - 1);
+                string colNumStr = line.substr(secondCommaPos + 1, gtPos - secondCommaPos - 1);
+                lineNumStr = trim(lineNumStr);
+                colNumStr = trim(colNumStr);
+                
+                int errorLine = 0, errorCol = 0;
+                try { errorLine = stoi(lineNumStr); } catch (...) {}
+                try { errorCol = stoi(colNumStr); } catch (...) {}
+                
+                Token t;
+                t.type = SYM_ERROR;
+                t.text = text;
+                t.line = errorLine;  // 使用错误标记中的行号
+                // 将列号信息编码到category中，格式为 "ERROR:列号"
+                t.category = "ERROR:" + to_string(errorCol);
+                tokens.push_back(t);
+                currentLine++;
+                continue;
+            }
+        }
+        
+        // 普通格式：<Type, Value>
+        string valStr = line.substr(commaPos + 1, gtPos - commaPos - 1); 
         valStr = trim(valStr);
         
         int val = 0;
@@ -159,7 +188,7 @@ int main() {
     // --- 输入与输出文件名配置 ---
     // 从 lex/output/ 目录读取词法分析结果文件
     // 目前默认读取 lex1.txt，你可以手动改成 lex2.txt / lex3.txt 等
-    string lexFilename = "../lex/output/lex1.txt";
+    string lexFilename = "../lex/output/lex2.txt";
     // 从文件名中提取数字部分，用于生成类似 "1out.txt" 的输出文件名
     string numPart;
     for (char ch : lexFilename) {
