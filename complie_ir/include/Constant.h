@@ -86,6 +86,23 @@ public:
 };
 
 /*!
+ *@brief 常量浮点型
+ */
+class ConstantFloat : public Constant {
+private:
+  float value_; /// 初始值
+
+public:
+  ConstantFloat(Type *ty, float val) : Constant(ty, "", 0), value_(val) {}
+
+  float get_value() const { return value_; }
+
+  static ConstantFloat *get(float val, Module *m);
+
+  std::string print() override;
+};
+
+/*!
  *@brief 常量数组
  *constant int array
  */

@@ -227,15 +227,15 @@ std::string BasicBlock::print() {
   std::string bb_ir;
   bb_ir += this->get_name();
   bb_ir += ":";
-  // print prebb
-  if (!this->get_pre_basic_blocks().empty()) {
-    bb_ir += "                                                ; preds = ";
-  }
-  for (auto bb : this->get_pre_basic_blocks()) {
-    if (bb != *this->get_pre_basic_blocks().begin())
-      bb_ir += ", ";
-    bb_ir += print_as_op(bb, false);
-  }
+  // 不打印preds注释，以匹配要求格式
+  // if (!this->get_pre_basic_blocks().empty()) {
+  //   bb_ir += "                                                ; preds = ";
+  // }
+  // for (auto bb : this->get_pre_basic_blocks()) {
+  //   if (bb != *this->get_pre_basic_blocks().begin())
+  //     bb_ir += ", ";
+  //   bb_ir += print_as_op(bb, false);
+  // }
 
   // print func
   if (!this->get_parent()) {
@@ -244,14 +244,14 @@ std::string BasicBlock::print() {
   }
   bb_ir += "\n";
   for (auto instr : this->get_instructions()) {
-    bb_ir += "  ";
+    bb_ir += "    ";  // 改为4个空格缩进
     bb_ir += instr->print();
     bb_ir += "\n";
   }
 
   // 空BasicBlock，自动加上return语句
   if (get_terminator() == nullptr) {
-    bb_ir += "  ";
+    bb_ir += "    ";  // 改为4个空格缩进
     if (get_parent()->get_return_type()->is_void_type()) {
       bb_ir += "ret void\n";
     } else {

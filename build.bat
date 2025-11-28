@@ -17,9 +17,9 @@ cd ..
 echo 词法分析器编译成功！
 echo.
 
-echo [2/2] 编译语法分析器...
+echo [2/2] 编译语法分析器（含IR生成）...
 cd Syntax
-g++ -std=c++17 -Wall main.cpp GrammarAnalyzer.cpp SLRTable.cpp Parser.cpp ReductionSequenceLogger.cpp -o compiler_test.exe
+g++ -std=c++17 -g -Wall -I../complie_ir/include -o compiler_ir.exe main.cpp GrammarAnalyzer.cpp SLRTable.cpp Parser.cpp IRGenerator.cpp ReductionSequenceLogger.cpp ../complie_ir/src/Module.cpp ../complie_ir/src/IRprinter.cpp ../complie_ir/src/Instruction.cpp ../complie_ir/src/Constant.cpp ../complie_ir/src/Value.cpp ../complie_ir/src/User.cpp ../complie_ir/src/Type.cpp ../complie_ir/src/GlobalVariable.cpp ../complie_ir/src/Function.cpp ../complie_ir/src/BasicBlock.cpp
 if %errorlevel% neq 0 (
     echo 语法分析器编译失败！
     cd ..

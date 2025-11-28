@@ -51,13 +51,13 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <cctype>
 
 #include "GrammarAnalyzer.h"
 #include "SLRTable.h"
 #include "Parser.h" 
 #include "ReductionSequenceLogger.h"
+#include "IRGenerator.h"
 // (注意：Parser.h 里已经定义了 struct Token)
 
 using namespace std;
@@ -237,7 +237,7 @@ int main() {
     // --- 输入与输出文件名配置 ---
     // 从 lex/output/ 目录读取词法分析结果文件
     // 目前默认读取 lex1.txt，你可以手动改成 lex2.txt / lex3.txt 等
-    string lexFilename = "../lex/output/lex2.txt";
+    string lexFilename = "../lex/output/lex3.txt";
     // 从文件名中提取数字部分，用于生成类似 "1out.txt" 的输出文件名
     string numPart;
     for (char ch : lexFilename) {
@@ -291,7 +291,6 @@ int main() {
     // 创建规约序列记录器（隔离处理，不影响核心逻辑）
     ReductionSequenceLogger sequenceLogger(&ga);
     Parser parser(&slr, tokens);
-    parser.sequenceLogger = &sequenceLogger;  // 设置 logger
     
     TreeNode* root = parser.parse();
     
@@ -352,9 +351,67 @@ int main() {
             treeFile.close();
             cout << "    Syntax tree written to " << treeFilename << endl;
         }
+        cout.flush();
+        cerr.flush();
+        
+        // 测试：确保能执行到这里
+        ofstream testFile("output/test4.txt");
+        testFile << "Reached IR generation step" << endl;
+        testFile.close();
+
+        // --- 步骤 5: 生成 IR 代码 ---
+        cout.flush();
+        cerr.flush();
+        cout << "[5] Generating IR code..." << endl;
+        cout.flush();
+        cerr.flush();
+        
+        // 使用文件直接写入调试信息，确保能看到
+        ofstream debugFile("output/debug4.txt");
+        debugFile << "About to create IRGenerator" << endl;
+        debugFile.flush();
+        
+        IRGenerator irGen(&ga);
+        debugFile << "IRGenerator created, about to call generate" << endl;
+        debugFile.flush();
+        
+        string irFilename = "output/" + numPart + ".ll";
+        try {
+            debugFile << "Calling irGen.generate with filename: " << irFilename << endl;
+            debugFile.flush();
+            bool result = irGen.generate(root, irFilename);
+            debugFile << "irGen.generate returned: " << (result ? "true" : "false") << endl;
+            debugFile.flush();
+            if (result) {
+                cout << "    IR code written to " << irFilename << endl;
+            } else {
+                cerr << "    IR generation failed!" << endl;
+            }
+        } catch (const std::exception &ex) {
+            debugFile << "Exception caught: " << ex.what() << endl;
+            debugFile.flush();
+            cerr << "    Exception in IR generation: " << ex.what() << endl;
+        } catch (...) {
+            debugFile << "Unknown exception caught" << endl;
+            debugFile.flush();
+            cerr << "    Unknown exception in IR generation" << endl;
+        }
+        debugFile.close();
+        cout.flush();
+        cerr.flush();
     } else {
         cout << "\nAnalysis Failed." << endl;
     }
+
+    // 确保所有输出都被写入文件
+    cout.flush();
+    cerr.flush();
+    outFile.flush();
+    outFile.close();
+    
+    // 恢复标准输出（可选，因为程序即将退出）
+    cout.rdbuf(std::cout.rdbuf());
+    cerr.rdbuf(std::cerr.rdbuf());
 
     return 0;
 }

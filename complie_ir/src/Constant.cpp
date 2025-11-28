@@ -120,3 +120,21 @@ ConstantZero *ConstantZero::get(Type *ty, Module *m) {
  *constant int zero
  */
 std::string ConstantZero::print() { return "zeroinitializer"; }
+
+/*!
+ *@brief 常量浮点型创建函数
+ */
+ConstantFloat *ConstantFloat::get(float val, Module *m) {
+  return new ConstantFloat(Type::get_float_type(m), val);
+}
+
+/*!
+ *@brief 打印浮点常量
+ */
+std::string ConstantFloat::print() {
+  std::ostringstream os;
+  os.setf(std::ios::fixed);
+  os.precision(6);
+  os << value_;
+  return os.str();
+}

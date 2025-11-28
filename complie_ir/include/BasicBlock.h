@@ -58,8 +58,8 @@ public:
    */
   static BasicBlock *create(Module *m, const std::string &name,
                             Function *parent, bool fake = false) {
-    auto prefix = name.empty() ? "" : "label_";
-    return new BasicBlock(m, prefix + name, parent, fake);
+    // 不添加label_前缀，直接使用提供的名称
+    return new BasicBlock(m, name, parent, fake);
   }
 
   /*!

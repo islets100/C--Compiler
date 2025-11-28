@@ -101,6 +101,22 @@ public:
   BinaryInst *create_irem(Value *lhs, Value *rhs) {
     return BinaryInst::create_mod(lhs, rhs, this->BB_, m_);
   }
+
+  BinaryInst *create_fadd(Value *lhs, Value *rhs) {
+    return BinaryInst::create_fadd(lhs, rhs, this->BB_, m_);
+  }
+
+  BinaryInst *create_fsub(Value *lhs, Value *rhs) {
+    return BinaryInst::create_fsub(lhs, rhs, this->BB_, m_);
+  }
+
+  BinaryInst *create_fmul(Value *lhs, Value *rhs) {
+    return BinaryInst::create_fmul(lhs, rhs, this->BB_, m_);
+  }
+
+  BinaryInst *create_fdiv(Value *lhs, Value *rhs) {
+    return BinaryInst::create_fdiv(lhs, rhs, this->BB_, m_);
+  }
   /*!
    *@brief 创建与运算指令
    *@param lhs 左值指针
@@ -130,7 +146,7 @@ public:
    */
 
   CmpInst *create_icmp_eq(Value *lhs, Value *rhs) {
-    return CmpInst::create_cmp(CmpInst::EQ, lhs, rhs, this->BB_, m_);
+    return CmpInst::create_cmp(CmpInst::EQ, lhs, rhs, this->BB_, m_, false);
   }
   /*!
    *@brief 创建比较不等指令
@@ -140,7 +156,7 @@ public:
    *@note 调用指针类的创建函数
    */
   CmpInst *create_icmp_ne(Value *lhs, Value *rhs) {
-    return CmpInst::create_cmp(CmpInst::NE, lhs, rhs, this->BB_, m_);
+    return CmpInst::create_cmp(CmpInst::NE, lhs, rhs, this->BB_, m_, false);
   }
   /*!
    *@brief 创建比较大于等于指令
@@ -150,7 +166,7 @@ public:
    *@note 调用指针类的创建函数
    */
   CmpInst *create_icmp_gt(Value *lhs, Value *rhs) {
-    return CmpInst::create_cmp(CmpInst::GT, lhs, rhs, this->BB_, m_);
+    return CmpInst::create_cmp(CmpInst::GT, lhs, rhs, this->BB_, m_, false);
   }
   /*!
    *@brief 创建比较大于指令
@@ -161,7 +177,7 @@ public:
    */
 
   CmpInst *create_icmp_ge(Value *lhs, Value *rhs) {
-    return CmpInst::create_cmp(CmpInst::GE, lhs, rhs, this->BB_, m_);
+    return CmpInst::create_cmp(CmpInst::GE, lhs, rhs, this->BB_, m_, false);
   }
   /*!
    *@brief 创建比较小于指令
@@ -171,7 +187,7 @@ public:
    *@note 调用指针类的创建函数
    */
   CmpInst *create_icmp_lt(Value *lhs, Value *rhs) {
-    return CmpInst::create_cmp(CmpInst::LT, lhs, rhs, this->BB_, m_);
+    return CmpInst::create_cmp(CmpInst::LT, lhs, rhs, this->BB_, m_, false);
   }
   /*!
    *@brief 创建比较小于等于指令
@@ -181,7 +197,31 @@ public:
    *@note 调用指针类的创建函数
    */
   CmpInst *create_icmp_le(Value *lhs, Value *rhs) {
-    return CmpInst::create_cmp(CmpInst::LE, lhs, rhs, this->BB_, m_);
+    return CmpInst::create_cmp(CmpInst::LE, lhs, rhs, this->BB_, m_, false);
+  }
+
+  CmpInst *create_fcmp_eq(Value *lhs, Value *rhs) {
+    return CmpInst::create_cmp(CmpInst::EQ, lhs, rhs, this->BB_, m_, true);
+  }
+
+  CmpInst *create_fcmp_ne(Value *lhs, Value *rhs) {
+    return CmpInst::create_cmp(CmpInst::NE, lhs, rhs, this->BB_, m_, true);
+  }
+
+  CmpInst *create_fcmp_gt(Value *lhs, Value *rhs) {
+    return CmpInst::create_cmp(CmpInst::GT, lhs, rhs, this->BB_, m_, true);
+  }
+
+  CmpInst *create_fcmp_ge(Value *lhs, Value *rhs) {
+    return CmpInst::create_cmp(CmpInst::GE, lhs, rhs, this->BB_, m_, true);
+  }
+
+  CmpInst *create_fcmp_lt(Value *lhs, Value *rhs) {
+    return CmpInst::create_cmp(CmpInst::LT, lhs, rhs, this->BB_, m_, true);
+  }
+
+  CmpInst *create_fcmp_le(Value *lhs, Value *rhs) {
+    return CmpInst::create_cmp(CmpInst::LE, lhs, rhs, this->BB_, m_, true);
   }
   /*!
    *@brief 创建调用指令

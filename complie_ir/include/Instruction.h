@@ -29,12 +29,17 @@ public:
     mul,
     sdiv,
     mod,
+    fadd,
+    fsub,
+    fmul,
+    fdiv,
     // Memory operators
     alloca,
     load,
     store,
     // Other operators
     cmp,
+    fcmp,
     phi,
     call,
     getelementptr,
@@ -116,6 +121,21 @@ public:
     case sdiv:
       return "sdiv";
       break;
+    case mod:
+      return "srem";
+      break;
+    case fadd:
+      return "fadd";
+      break;
+    case fsub:
+      return "fsub";
+      break;
+    case fmul:
+      return "fmul";
+      break;
+    case fdiv:
+      return "fdiv";
+      break;
     case alloca:
       return "alloca";
       break;
@@ -126,7 +146,10 @@ public:
       return "store";
       break;
     case cmp:
-      return "cmp";
+      return "icmp";
+      break;
+    case fcmp:
+      return "fcmp";
       break;
     case phi:
       return "phi";
@@ -164,21 +187,27 @@ public:
   bool is_mul() { return op_id_ == mul; }
   bool is_div() { return op_id_ == sdiv; }
   bool is_rem() { return op_id_ == mod; }
+  bool is_fadd() { return op_id_ == fadd; }
+  bool is_fsub() { return op_id_ == fsub; }
+  bool is_fmul() { return op_id_ == fmul; }
+  bool is_fdiv() { return op_id_ == fdiv; }
 
   bool is_cmp() { return op_id_ == cmp; }
+  bool is_fcmp() { return op_id_ == fcmp; }
 
   bool is_call() { return op_id_ == call; }
   bool is_gep() { return op_id_ == getelementptr; }
   bool is_zext() { return op_id_ == zext; }
 
   bool isBinary() {
-    return (is_add() || is_sub() || is_mul() || is_div()) &&
+    return (is_add() || is_sub() || is_mul() || is_div() || is_fadd() ||
+            is_fsub() || is_fmul() || is_fdiv()) &&
            ((int)get_num_operand() == 2);
   }
 
-  virtual bool isStaticCalculable() { return false; }
+  virtual bool isStaticCalculable();
 
-  virtual int calculate() { return 0; }
+  virtual int calculate();
 
   bool isTerminator() { return is_br() || is_ret(); }
 
@@ -212,6 +241,15 @@ public:
 
   static BinaryInst *create_mod(Value *v1, Value *v2, BasicBlock *bb,
                                 Module *m);
+
+  static BinaryInst *create_fadd(Value *v1, Value *v2, BasicBlock *bb,
+                                 Module *m);
+  static BinaryInst *create_fsub(Value *v1, Value *v2, BasicBlock *bb,
+                                 Module *m);
+  static BinaryInst *create_fmul(Value *v1, Value *v2, BasicBlock *bb,
+                                 Module *m);
+  static BinaryInst *create_fdiv(Value *v1, Value *v2, BasicBlock *bb,
+                                 Module *m);
 
   // 暂时忽略
   // static BinaryInst *create_s_bin(Value *v1, Value *v2, OpID op, BasicBlock
@@ -257,15 +295,18 @@ public:
   };
 
 private:
-  CmpInst(Type *ty, CmpOp op, Value *lhs, Value *rhs, BasicBlock *bb);
+  CmpInst(Type *ty, CmpOp op, Value *lhs, Value *rhs, BasicBlock *bb,
+          bool is_float = false);
   CmpInst(Type *ty, CmpOp op, BasicBlock *bb)
-      : Instruction(ty, Instruction::cmp, 2, bb), cmp_op_(op){};
+      : Instruction(ty, Instruction::cmp, 2, bb), cmp_op_(op),
+        is_float_(false){};
 
 public:
   static CmpInst *create_cmp(CmpOp op, Value *lhs, Value *rhs, BasicBlock *bb,
-                             Module *m);
+                             Module *m, bool is_float = false);
 
   CmpOp get_cmp_op() { return cmp_op_; }
+  bool is_float_cmp() const { return is_float_; }
 
   virtual bool isStaticCalculable() override;
 
@@ -291,6 +332,7 @@ public:
 
 private:
   CmpOp cmp_op_;
+  bool is_float_;
 
   void assertValid();
 };

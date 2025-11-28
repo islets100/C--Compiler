@@ -47,22 +47,41 @@ std::string print_as_op(Value *v, bool print_ty) {
  *---------
  *
  */
-std::string print_cmp_type(CmpInst::CmpOp op) {
-  switch (op) {
-  case CmpInst::GE:
-    return "sge";
-  case CmpInst::GT:
-    return "sgt";
-  case CmpInst::LE:
-    return "sle";
-  case CmpInst::LT:
-    return "slt";
-  case CmpInst::EQ:
-    return "eq";
-  case CmpInst::NE:
-    return "ne";
-  default:
-    break;
+std::string print_cmp_type(CmpInst::CmpOp op, bool is_float) {
+  if (is_float) {
+    switch (op) {
+    case CmpInst::GE:
+      return "oge";
+    case CmpInst::GT:
+      return "ogt";
+    case CmpInst::LE:
+      return "ole";
+    case CmpInst::LT:
+      return "olt";
+    case CmpInst::EQ:
+      return "oeq";
+    case CmpInst::NE:
+      return "one";
+    default:
+      break;
+    }
+  } else {
+    switch (op) {
+    case CmpInst::GE:
+      return "sge";
+    case CmpInst::GT:
+      return "sgt";
+    case CmpInst::LE:
+      return "sle";
+    case CmpInst::LT:
+      return "slt";
+    case CmpInst::EQ:
+      return "eq";
+    case CmpInst::NE:
+      return "ne";
+    default:
+      break;
+    }
   }
   return "wrong cmpop";
 }

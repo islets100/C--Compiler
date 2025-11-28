@@ -152,7 +152,11 @@ void Function::set_instr_name() {
   for (auto bb : basic_blocks_) {
     if (seq.find(bb) == seq.end()) {
       auto seq_num = seq.size() + seq_cnt_;
-      if (bb->set_name("label" + std::to_string(seq_num))) {
+      // 不添加label前缀，直接使用数字作为名称（如果基本块没有名称）
+      if (bb->get_name().empty() && bb->set_name(std::to_string(seq_num))) {
+        seq.insert({bb, seq_num});
+      } else if (!bb->get_name().empty()) {
+        // 如果基本块已有名称，也加入seq以避免重复
         seq.insert({bb, seq_num});
       }
     }

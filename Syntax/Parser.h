@@ -2,13 +2,11 @@
 #define PARSER_H
 
 #include "SLRTable.h"
-#include "SyntaxTree.h" // 确保你有这个文件，如果没有，见下一步
-#include <vector>
+#include "SyntaxTree.h" // 用于语法树节点
 #include <stack>
 #include <string>
-
-// 前向声明
-class ReductionSequenceLogger;
+#include <utility>
+#include <vector>
 
 using namespace std;
 
@@ -21,9 +19,6 @@ struct Token {
     string category;   // 原始类别 (如 "KW", "OP", "IDN") - 用于错误报告
 };
 
-// 前向声明
-class ReductionSequenceLogger;
-
 class Parser {
 public:
     SLRTable* slrTable;
@@ -33,12 +28,9 @@ public:
     stack<int> stateStack;
     // 节点栈 (用于构建语法树)
     stack<TreeNode*> nodeStack;
-    
-    // 可选的规约序列记录器（隔离处理，不影响核心逻辑）
-    ReductionSequenceLogger* sequenceLogger;
 
     Parser(SLRTable* table, vector<Token> inputTokens) 
-        : slrTable(table), tokens(inputTokens), sequenceLogger(nullptr) {}
+        : slrTable(table), tokens(std::move(inputTokens)) {}
 
     // 执行分析
     TreeNode* parse();

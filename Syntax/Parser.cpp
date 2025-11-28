@@ -41,9 +41,8 @@
  * Copyright 2025 Ren Xiaohua, All Rights Reserved. 
  */
 #include "Parser.h"
-#include "ReductionSequenceLogger.h"
+#include <algorithm>
 #include <iostream>
-#include <algorithm> // for reverse
 
 using namespace std;
 
@@ -142,18 +141,6 @@ TreeNode* Parser::parse() {
             cerr << "Syntax Error at line " << currentToken.line 
                  << ": Unexpected token '" << currentToken.text << "'" << endl;
             
-            // 记录错误到规约序列（隔离处理，不影响核心逻辑）
-            if (sequenceLogger) {
-                int stackTopId = SYM_EPSILON;
-                string stackTopText = "";
-                if (!nodeStack.empty()) {
-                    TreeNode* top = nodeStack.top();
-                    stackTopId = top->symbolId;
-                    stackTopText = top->text;
-                }
-                sequenceLogger->logError(stackTopId, stackTopText, symbolId, currentToken.text);
-            }
-            
             return nullptr;
         }
 
@@ -167,15 +154,6 @@ TreeNode* Parser::parse() {
             // === 移进 (Shift) ===
             cout << "Shift " << act.target << endl;
             
-            // 记录规约序列（在执行动作之前，获取当前栈顶符号）
-            int prevStackTopId = SYM_EPSILON;
-            string prevStackTopText = "";
-            if (!nodeStack.empty()) {
-                TreeNode* top = nodeStack.top();
-                prevStackTopId = top->symbolId;
-                prevStackTopText = top->text;
-            }
-            
             stateStack.push(act.target);
             
             // 创建终结符节点入栈
@@ -183,16 +161,6 @@ TreeNode* Parser::parse() {
             nodeStack.push(leaf);
             
             ip++; // 读下一个 Token
-            
-            // 记录规约序列（隔离处理，不影响核心逻辑）
-            // 移进后，栈顶是刚移进的符号，面临输入是下一个符号
-            if (sequenceLogger) {
-                int nextSymbolId = (ip < tokens.size()) ? tokens[ip].type : SYM_EOF;
-                string nextText = (ip < tokens.size()) ? tokens[ip].text : "$";
-                // 使用文本值（如 "int", "a"）而不是符号类型
-                sequenceLogger->logShift(symbolId, currentToken.text, nextSymbolId, nextText);
-            }
-            
         } else if (act.type == ACT_REDUCE) {
             // === 归约 (Reduce) ===
             int prodId = act.target;
@@ -230,25 +198,11 @@ TreeNode* Parser::parse() {
             int nextState = slrTable->gotoTable[preState][prod.left];
             
             stateStack.push(nextState);
-            
-            // 记录规约序列（隔离处理，不影响核心逻辑）
-            // 归约后，栈顶是归约产生的非终结符，面临输入是当前输入符号
-            if (sequenceLogger) {
-                sequenceLogger->logReduce(prod.left, "", symbolId, currentToken.text, prod.left);
-            }
-            
             // 注意：归约时不移动输入指针 ip
 
         } else if (act.type == ACT_ACCEPT) {
             // === 接受 (Accept) ===
             cout << "ACCEPT!" << endl;
-            
-            // 记录规约序列（隔离处理，不影响核心逻辑）
-            if (sequenceLogger && !nodeStack.empty()) {
-                TreeNode* root = nodeStack.top();
-                sequenceLogger->logAccept(root->symbolId, "");
-            }
-            
             return nodeStack.top(); // 返回根节点
         }
     }

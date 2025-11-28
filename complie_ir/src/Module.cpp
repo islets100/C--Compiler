@@ -5,8 +5,11 @@
  *@date 2022-10-04
  */
 #include "Module.h"
+#include "Function.h"
+#include "Type.h"
 
 #include <utility>
+#include <set>
 
 Module::Module(std::string name) : module_name_(std::move(name)) {
   /// @brief 创建类型指针对象
@@ -26,8 +29,13 @@ Module::Module(std::string name) : module_name_(std::move(name)) {
   instr_id2string_.insert({Instruction::mul, "mul"});
   instr_id2string_.insert({Instruction::sdiv, "sdiv"});
   instr_id2string_.insert({Instruction::mod, "srem"});
+  instr_id2string_.insert({Instruction::fadd, "fadd"});
+  instr_id2string_.insert({Instruction::fsub, "fsub"});
+  instr_id2string_.insert({Instruction::fmul, "fmul"});
+  instr_id2string_.insert({Instruction::fdiv, "fdiv"});
 
   instr_id2string_.insert({Instruction::cmp, "icmp"});
+  instr_id2string_.insert({Instruction::fcmp, "fcmp"});
 
   instr_id2string_.insert({Instruction::alloca, "alloca"});
   instr_id2string_.insert({Instruction::load, "load"});
@@ -166,13 +174,76 @@ void Module::set_print_name() {
  */
 std::string Module::print() {
   std::string module_ir;
+  
+  // 添加头部信息
+  module_ir += "; ModuleID = 'sysy2022_complier'\n";
+  if (!source_file_name_.empty()) {
+    module_ir += "source_filename = \"" + source_file_name_ + "\"\n";
+  } else {
+    module_ir += "source_filename = \"<stdin>\"\n";
+  }
+  module_ir += "\n";
+  
+  // 添加全局变量
   for (auto global_val : this->global_list_) {
     module_ir += global_val->print();
     module_ir += "\n";
   }
+  
+  // 添加标准函数声明
+  auto int32_ty = get_int32_type();
+  auto void_ty = get_void_type();
+  auto int32_ptr_ty = get_int32_ptr_type();
+  
+  // declare i32 @getinit()
+  auto getinit_ty = FunctionType::get(int32_ty, std::vector<Type *>());
+  auto getinit_func = Function::create(getinit_ty, "getinit", this);
+  module_ir += getinit_func->print();
+  
+  // declare i32 @getch()
+  auto getch_ty = FunctionType::get(int32_ty, std::vector<Type *>());
+  auto getch_func = Function::create(getch_ty, "getch", this);
+  module_ir += getch_func->print();
+  
+  // declare i32 @getarray(i32*)
+  auto getarray_ty = FunctionType::get(int32_ty, std::vector<Type *>{int32_ptr_ty});
+  auto getarray_func = Function::create(getarray_ty, "getarray", this);
+  module_ir += getarray_func->print();
+  
+  // declare void @putinit(i32)
+  auto putinit_ty = FunctionType::get(void_ty, std::vector<Type *>{int32_ty});
+  auto putinit_func = Function::create(putinit_ty, "putinit", this);
+  module_ir += putinit_func->print();
+  
+  // declare void @putch(i32)
+  auto putch_ty = FunctionType::get(void_ty, std::vector<Type *>{int32_ty});
+  auto putch_func = Function::create(putch_ty, "putch", this);
+  module_ir += putch_func->print();
+  
+  // declare void @putarray(i32, i32*)
+  auto putarray_ty = FunctionType::get(void_ty, std::vector<Type *>{int32_ty, int32_ptr_ty});
+  auto putarray_func = Function::create(putarray_ty, "putarray", this);
+  module_ir += putarray_func->print();
+  
+  // declare void @starttime()
+  auto starttime_ty = FunctionType::get(void_ty, std::vector<Type *>());
+  auto starttime_func = Function::create(starttime_ty, "starttime", this);
+  module_ir += starttime_func->print();
+  
+  // declare void @stoptime()
+  auto stoptime_ty = FunctionType::get(void_ty, std::vector<Type *>());
+  auto stoptime_func = Function::create(stoptime_ty, "stoptime", this);
+  module_ir += stoptime_func->print();
+  module_ir += "\n";
+  
+  // 添加用户定义的函数（跳过标准函数声明）
+  std::set<std::string> std_funcs = {"getinit", "getch", "getarray", "putinit", "putch", "putarray", "starttime", "stoptime"};
   for (auto func : this->function_list_) {
-    module_ir += func->print();
-    module_ir += "\n";
+    // 跳过标准函数，因为它们已经在上面声明了
+    if (std_funcs.find(func->get_name()) == std_funcs.end()) {
+      module_ir += func->print();
+      module_ir += "\n";
+    }
   }
   return module_ir;
 }

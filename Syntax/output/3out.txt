@@ -92,7 +92,7 @@ ConstExp       : { ; , }
 [3] Building SLR Table...
     SLR Table generated. Total States: 132
 [3] Loading Tokens from ../lex/output/lex3.txt...
-    Loaded 150 tokens.
+    Loaded 151 tokens.
 [4] Starting Parser...
 
 ================ PARSING PROCESS ================
@@ -116,563 +116,573 @@ Step	State	Input	Action
 14	14	ID	Shift 22
 15	22	=	Shift 30
 16	30	INT	Shift 34
-17	34	,	Reduce 51 (Number -> ...)
-18	43	,	Reduce 50 (PrimaryExp -> ...)
-19	42	,	Reduce 53 (UnaryExp -> ...)
-20	44	,	Reduce 62 (MulExp -> ...)
-21	46	,	Reduce 66 (AddExp -> ...)
-22	60	,	Reduce 81 (ConstExp -> ...)
-23	61	,	Reduce 15 (ConstInit -> ...)
-24	59	,	Reduce 14 (ConstDef -> ...)
-25	24	,	Shift 32
-26	32	ID	Shift 22
-27	22	=	Shift 30
-28	30	INT	Shift 34
-29	34	;	Reduce 51 (Number -> ...)
-30	43	;	Reduce 50 (PrimaryExp -> ...)
-31	42	;	Reduce 53 (UnaryExp -> ...)
-32	44	;	Reduce 62 (MulExp -> ...)
-33	46	;	Reduce 66 (AddExp -> ...)
-34	60	;	Reduce 81 (ConstExp -> ...)
-35	61	;	Reduce 15 (ConstInit -> ...)
-36	59	;	Reduce 14 (ConstDef -> ...)
-37	24	;	Reduce 10 (ConstDefList -> ...)
-38	62	;	Reduce 11 (ConstDefList -> ...)
-39	23	;	Shift 31
+17	34	;	Reduce 51 (Number -> ...)
+18	43	;	Reduce 50 (PrimaryExp -> ...)
+19	42	;	Reduce 53 (UnaryExp -> ...)
+20	44	;	Reduce 62 (MulExp -> ...)
+21	46	;	Reduce 66 (AddExp -> ...)
+22	60	;	Reduce 81 (ConstExp -> ...)
+23	61	;	Reduce 15 (ConstInit -> ...)
+24	59	;	Reduce 14 (ConstDef -> ...)
+25	24	;	Reduce 10 (ConstDefList -> ...)
+26	23	;	Shift 31
 
-[词法错误] 行号 2, 列号 35: 无法识别的字符 '#'
+[词法错误] 行号 2, 列号 27: 无法识别的字符 '#'
           该字符将被跳过，继续分析后续内容。
-40	31	float	Reduce 9 (ConstDecl -> ...)
-41	9	float	Reduce 7 (Decl -> ...)
-42	111	float	Reduce 35 (BlockItem -> ...)
-43	114	float	Reduce 33 (BlockItemList -> ...)
-44	106	float	Shift 6
-45	6	ID	Reduce 13 (BType -> ...)
-46	112	ID	Shift 52
-47	52	=	Shift 25
-48	25	FLOAT	Shift 35
-49	35	,	Reduce 52 (Number -> ...)
-50	43	,	Reduce 50 (PrimaryExp -> ...)
-51	42	,	Reduce 53 (UnaryExp -> ...)
-52	44	,	Reduce 62 (MulExp -> ...)
-53	46	,	Reduce 66 (AddExp -> ...)
-54	47	,	Reduce 69 (RelExp -> ...)
-55	48	,	Reduce 74 (EqExp -> ...)
-56	49	,	Reduce 77 (LAndExp -> ...)
-57	50	,	Reduce 79 (LOrExp -> ...)
-58	51	,	Reduce 45 (Exp -> ...)
-59	40	,	Reduce 21 (InitVal -> ...)
-60	39	,	Reduce 20 (VarDef -> ...)
-61	18	,	Shift 27
-62	27	ID	Shift 52
-63	52	=	Shift 25
-64	25	FLOAT	Shift 35
-65	35	;	Reduce 52 (Number -> ...)
-66	43	;	Reduce 50 (PrimaryExp -> ...)
-67	42	;	Reduce 53 (UnaryExp -> ...)
-68	44	;	Reduce 62 (MulExp -> ...)
-69	46	;	Reduce 66 (AddExp -> ...)
-70	47	;	Reduce 69 (RelExp -> ...)
-71	48	;	Reduce 74 (EqExp -> ...)
-72	49	;	Reduce 77 (LAndExp -> ...)
-73	50	;	Reduce 79 (LOrExp -> ...)
-74	51	;	Reduce 45 (Exp -> ...)
-75	40	;	Reduce 21 (InitVal -> ...)
-76	39	;	Reduce 20 (VarDef -> ...)
-77	18	;	Reduce 17 (VarDefList -> ...)
-78	53	;	Reduce 18 (VarDefList -> ...)
-79	17	;	Shift 26
+27	31	int	Reduce 9 (ConstDecl -> ...)
+28	9	int	Reduce 7 (Decl -> ...)
+29	111	int	Reduce 35 (BlockItem -> ...)
+30	114	int	Reduce 33 (BlockItemList -> ...)
+31	106	int	Shift 3
+32	3	ID	Reduce 12 (BType -> ...)
+33	112	ID	Shift 52
+34	52	=	Shift 25
+35	25	INT	Shift 34
+36	34	;	Reduce 51 (Number -> ...)
+37	43	;	Reduce 50 (PrimaryExp -> ...)
+38	42	;	Reduce 53 (UnaryExp -> ...)
+39	44	;	Reduce 62 (MulExp -> ...)
+40	46	;	Reduce 66 (AddExp -> ...)
+41	47	;	Reduce 69 (RelExp -> ...)
+42	48	;	Reduce 74 (EqExp -> ...)
+43	49	;	Reduce 77 (LAndExp -> ...)
+44	50	;	Reduce 79 (LOrExp -> ...)
+45	51	;	Reduce 45 (Exp -> ...)
+46	40	;	Reduce 21 (InitVal -> ...)
+47	39	;	Reduce 20 (VarDef -> ...)
+48	18	;	Reduce 17 (VarDefList -> ...)
+49	17	;	Shift 26
+50	26	float	Reduce 16 (VarDecl -> ...)
+51	10	float	Reduce 8 (Decl -> ...)
+52	111	float	Reduce 35 (BlockItem -> ...)
+53	114	float	Reduce 33 (BlockItemList -> ...)
+54	106	float	Shift 6
+55	6	ID	Reduce 13 (BType -> ...)
+56	112	ID	Shift 52
+57	52	=	Shift 25
+58	25	FLOAT	Shift 35
+59	35	,	Reduce 52 (Number -> ...)
+60	43	,	Reduce 50 (PrimaryExp -> ...)
+61	42	,	Reduce 53 (UnaryExp -> ...)
+62	44	,	Reduce 62 (MulExp -> ...)
+63	46	,	Reduce 66 (AddExp -> ...)
+64	47	,	Reduce 69 (RelExp -> ...)
+65	48	,	Reduce 74 (EqExp -> ...)
+66	49	,	Reduce 77 (LAndExp -> ...)
+67	50	,	Reduce 79 (LOrExp -> ...)
+68	51	,	Reduce 45 (Exp -> ...)
+69	40	,	Reduce 21 (InitVal -> ...)
+70	39	,	Reduce 20 (VarDef -> ...)
+71	18	,	Shift 27
+72	27	ID	Shift 52
+73	52	=	Shift 25
+74	25	FLOAT	Shift 35
+75	35	;	Reduce 52 (Number -> ...)
+76	43	;	Reduce 50 (PrimaryExp -> ...)
+77	42	;	Reduce 53 (UnaryExp -> ...)
+78	44	;	Reduce 62 (MulExp -> ...)
+79	46	;	Reduce 66 (AddExp -> ...)
+80	47	;	Reduce 69 (RelExp -> ...)
+81	48	;	Reduce 74 (EqExp -> ...)
+82	49	;	Reduce 77 (LAndExp -> ...)
+83	50	;	Reduce 79 (LOrExp -> ...)
+84	51	;	Reduce 45 (Exp -> ...)
+85	40	;	Reduce 21 (InitVal -> ...)
+86	39	;	Reduce 20 (VarDef -> ...)
+87	18	;	Reduce 17 (VarDefList -> ...)
+88	53	;	Reduce 18 (VarDefList -> ...)
+89	17	;	Shift 26
 
-[词法错误] 行号 3, 列号 35: 无法识别的字符 '$'
+[词法错误] 行号 4, 列号 35: 无法识别的字符 '$'
           该字符将被跳过，继续分析后续内容。
-80	26	int	Reduce 16 (VarDecl -> ...)
-81	10	int	Reduce 8 (Decl -> ...)
-82	111	int	Reduce 35 (BlockItem -> ...)
-83	114	int	Reduce 33 (BlockItemList -> ...)
-84	106	int	Shift 3
-85	3	ID	Reduce 12 (BType -> ...)
-86	112	ID	Shift 52
-87	52	=	Shift 25
-88	25	INT	Shift 34
-89	34	,	Reduce 51 (Number -> ...)
-90	43	,	Reduce 50 (PrimaryExp -> ...)
-91	42	,	Reduce 53 (UnaryExp -> ...)
-92	44	,	Reduce 62 (MulExp -> ...)
-93	46	,	Reduce 66 (AddExp -> ...)
-94	47	,	Reduce 69 (RelExp -> ...)
-95	48	,	Reduce 74 (EqExp -> ...)
-96	49	,	Reduce 77 (LAndExp -> ...)
-97	50	,	Reduce 79 (LOrExp -> ...)
-98	51	,	Reduce 45 (Exp -> ...)
-99	40	,	Reduce 21 (InitVal -> ...)
-100	39	,	Reduce 20 (VarDef -> ...)
-101	18	,	Shift 27
-102	27	ID	Shift 52
-103	52	=	Shift 25
-104	25	INT	Shift 34
-105	34	;	Reduce 51 (Number -> ...)
-106	43	;	Reduce 50 (PrimaryExp -> ...)
-107	42	;	Reduce 53 (UnaryExp -> ...)
-108	44	;	Reduce 62 (MulExp -> ...)
-109	46	;	Reduce 66 (AddExp -> ...)
-110	47	;	Reduce 69 (RelExp -> ...)
-111	48	;	Reduce 74 (EqExp -> ...)
-112	49	;	Reduce 77 (LAndExp -> ...)
-113	50	;	Reduce 79 (LOrExp -> ...)
-114	51	;	Reduce 45 (Exp -> ...)
-115	40	;	Reduce 21 (InitVal -> ...)
-116	39	;	Reduce 20 (VarDef -> ...)
-117	18	;	Reduce 17 (VarDefList -> ...)
-118	53	;	Reduce 18 (VarDefList -> ...)
-119	17	;	Shift 26
+90	26	int	Reduce 16 (VarDecl -> ...)
+91	10	int	Reduce 8 (Decl -> ...)
+92	111	int	Reduce 35 (BlockItem -> ...)
+93	114	int	Reduce 33 (BlockItemList -> ...)
+94	106	int	Shift 3
+95	3	ID	Reduce 12 (BType -> ...)
+96	112	ID	Shift 52
+97	52	=	Shift 25
+98	25	INT	Shift 34
+99	34	,	Reduce 51 (Number -> ...)
+100	43	,	Reduce 50 (PrimaryExp -> ...)
+101	42	,	Reduce 53 (UnaryExp -> ...)
+102	44	,	Reduce 62 (MulExp -> ...)
+103	46	,	Reduce 66 (AddExp -> ...)
+104	47	,	Reduce 69 (RelExp -> ...)
+105	48	,	Reduce 74 (EqExp -> ...)
+106	49	,	Reduce 77 (LAndExp -> ...)
+107	50	,	Reduce 79 (LOrExp -> ...)
+108	51	,	Reduce 45 (Exp -> ...)
+109	40	,	Reduce 21 (InitVal -> ...)
+110	39	,	Reduce 20 (VarDef -> ...)
+111	18	,	Shift 27
+112	27	ID	Shift 52
+113	52	=	Shift 25
+114	25	INT	Shift 34
+115	34	;	Reduce 51 (Number -> ...)
+116	43	;	Reduce 50 (PrimaryExp -> ...)
+117	42	;	Reduce 53 (UnaryExp -> ...)
+118	44	;	Reduce 62 (MulExp -> ...)
+119	46	;	Reduce 66 (AddExp -> ...)
+120	47	;	Reduce 69 (RelExp -> ...)
+121	48	;	Reduce 74 (EqExp -> ...)
+122	49	;	Reduce 77 (LAndExp -> ...)
+123	50	;	Reduce 79 (LOrExp -> ...)
+124	51	;	Reduce 45 (Exp -> ...)
+125	40	;	Reduce 21 (InitVal -> ...)
+126	39	;	Reduce 20 (VarDef -> ...)
+127	18	;	Reduce 17 (VarDefList -> ...)
+128	53	;	Reduce 18 (VarDefList -> ...)
+129	17	;	Shift 26
 
-[词法错误] 行号 4, 列号 35: 无法识别的字符 '^'
+[词法错误] 行号 5, 列号 35: 无法识别的字符 '^'
           该字符将被跳过，继续分析后续内容。
-120	26	ID	Reduce 16 (VarDecl -> ...)
-121	10	ID	Reduce 8 (Decl -> ...)
-122	111	ID	Reduce 35 (BlockItem -> ...)
-123	114	ID	Reduce 33 (BlockItemList -> ...)
-124	106	ID	Shift 33
-125	33	=	Reduce 47 (LVal -> ...)
-126	118	=	Shift 122
-127	122	ID	Shift 33
-128	33	+	Reduce 47 (LVal -> ...)
-129	41	+	Reduce 49 (PrimaryExp -> ...)
-130	42	+	Reduce 53 (UnaryExp -> ...)
-131	44	+	Reduce 62 (MulExp -> ...)
-132	46	+	Reduce 66 (AddExp -> ...)
-133	47	+	Shift 69
-134	69	ID	Shift 33
-135	33	*	Reduce 47 (LVal -> ...)
-136	41	*	Reduce 49 (PrimaryExp -> ...)
-137	42	*	Reduce 53 (UnaryExp -> ...)
-138	44	*	Reduce 62 (MulExp -> ...)
-139	90	*	Shift 66
-140	66	INT	Shift 34
-141	34	-	Reduce 51 (Number -> ...)
-142	43	-	Reduce 50 (PrimaryExp -> ...)
-143	42	-	Reduce 53 (UnaryExp -> ...)
-144	87	-	Reduce 63 (MulExp -> ...)
-145	90	-	Reduce 67 (AddExp -> ...)
-146	47	-	Shift 70
-147	70	INT	Shift 34
-148	34	/	Reduce 51 (Number -> ...)
-149	43	/	Reduce 50 (PrimaryExp -> ...)
-150	42	/	Reduce 53 (UnaryExp -> ...)
-151	44	/	Reduce 62 (MulExp -> ...)
-152	91	/	Shift 67
-153	67	INT	Shift 34
-154	34	%	Reduce 51 (Number -> ...)
-155	43	%	Reduce 50 (PrimaryExp -> ...)
-156	42	%	Reduce 53 (UnaryExp -> ...)
-157	88	%	Reduce 64 (MulExp -> ...)
-158	91	%	Shift 68
-159	68	INT	Shift 34
-160	34	;	Reduce 51 (Number -> ...)
-161	43	;	Reduce 50 (PrimaryExp -> ...)
-162	42	;	Reduce 53 (UnaryExp -> ...)
-163	89	;	Reduce 65 (MulExp -> ...)
-164	91	;	Reduce 68 (AddExp -> ...)
-165	47	;	Reduce 69 (RelExp -> ...)
-166	48	;	Reduce 74 (EqExp -> ...)
-167	49	;	Reduce 77 (LAndExp -> ...)
-168	50	;	Reduce 79 (LOrExp -> ...)
-169	51	;	Reduce 45 (Exp -> ...)
-170	126	;	Shift 128
+130	26	ID	Reduce 16 (VarDecl -> ...)
+131	10	ID	Reduce 8 (Decl -> ...)
+132	111	ID	Reduce 35 (BlockItem -> ...)
+133	114	ID	Reduce 33 (BlockItemList -> ...)
+134	106	ID	Shift 33
+135	33	=	Reduce 47 (LVal -> ...)
+136	118	=	Shift 122
+137	122	ID	Shift 33
+138	33	+	Reduce 47 (LVal -> ...)
+139	41	+	Reduce 49 (PrimaryExp -> ...)
+140	42	+	Reduce 53 (UnaryExp -> ...)
+141	44	+	Reduce 62 (MulExp -> ...)
+142	46	+	Reduce 66 (AddExp -> ...)
+143	47	+	Shift 69
+144	69	ID	Shift 33
+145	33	*	Reduce 47 (LVal -> ...)
+146	41	*	Reduce 49 (PrimaryExp -> ...)
+147	42	*	Reduce 53 (UnaryExp -> ...)
+148	44	*	Reduce 62 (MulExp -> ...)
+149	90	*	Shift 66
+150	66	INT	Shift 34
+151	34	-	Reduce 51 (Number -> ...)
+152	43	-	Reduce 50 (PrimaryExp -> ...)
+153	42	-	Reduce 53 (UnaryExp -> ...)
+154	87	-	Reduce 63 (MulExp -> ...)
+155	90	-	Reduce 67 (AddExp -> ...)
+156	47	-	Shift 70
+157	70	INT	Shift 34
+158	34	/	Reduce 51 (Number -> ...)
+159	43	/	Reduce 50 (PrimaryExp -> ...)
+160	42	/	Reduce 53 (UnaryExp -> ...)
+161	44	/	Reduce 62 (MulExp -> ...)
+162	91	/	Shift 67
+163	67	INT	Shift 34
+164	34	%	Reduce 51 (Number -> ...)
+165	43	%	Reduce 50 (PrimaryExp -> ...)
+166	42	%	Reduce 53 (UnaryExp -> ...)
+167	88	%	Reduce 64 (MulExp -> ...)
+168	91	%	Shift 68
+169	68	INT	Shift 34
+170	34	;	Reduce 51 (Number -> ...)
+171	43	;	Reduce 50 (PrimaryExp -> ...)
+172	42	;	Reduce 53 (UnaryExp -> ...)
+173	89	;	Reduce 65 (MulExp -> ...)
+174	91	;	Reduce 68 (AddExp -> ...)
+175	47	;	Reduce 69 (RelExp -> ...)
+176	48	;	Reduce 74 (EqExp -> ...)
+177	49	;	Reduce 77 (LAndExp -> ...)
+178	50	;	Reduce 79 (LOrExp -> ...)
+179	51	;	Reduce 45 (Exp -> ...)
+180	126	;	Shift 128
 
-[词法错误] 行号 6, 列号 35: 无法识别的字符 '|'
+[词法错误] 行号 7, 列号 35: 无法识别的字符 '|'
           该字符将被跳过，继续分析后续内容。
-171	128	ID	Reduce 37 (Stmt -> ...)
-172	115	ID	Reduce 36 (BlockItem -> ...)
-173	114	ID	Reduce 33 (BlockItemList -> ...)
-174	106	ID	Shift 33
-175	33	=	Reduce 47 (LVal -> ...)
-176	118	=	Shift 122
-177	122	ID	Shift 33
-178	33	+	Reduce 47 (LVal -> ...)
-179	41	+	Reduce 49 (PrimaryExp -> ...)
-180	42	+	Reduce 53 (UnaryExp -> ...)
-181	44	+	Reduce 62 (MulExp -> ...)
-182	46	+	Reduce 66 (AddExp -> ...)
-183	47	+	Shift 69
-184	69	ID	Shift 33
-185	33	;	Reduce 47 (LVal -> ...)
-186	41	;	Reduce 49 (PrimaryExp -> ...)
-187	42	;	Reduce 53 (UnaryExp -> ...)
-188	44	;	Reduce 62 (MulExp -> ...)
-189	90	;	Reduce 67 (AddExp -> ...)
-190	47	;	Reduce 69 (RelExp -> ...)
-191	48	;	Reduce 74 (EqExp -> ...)
-192	49	;	Reduce 77 (LAndExp -> ...)
-193	50	;	Reduce 79 (LOrExp -> ...)
-194	51	;	Reduce 45 (Exp -> ...)
-195	126	;	Shift 128
+181	128	ID	Reduce 37 (Stmt -> ...)
+182	115	ID	Reduce 36 (BlockItem -> ...)
+183	114	ID	Reduce 33 (BlockItemList -> ...)
+184	106	ID	Shift 33
+185	33	=	Reduce 47 (LVal -> ...)
+186	118	=	Shift 122
+187	122	ID	Shift 33
+188	33	+	Reduce 47 (LVal -> ...)
+189	41	+	Reduce 49 (PrimaryExp -> ...)
+190	42	+	Reduce 53 (UnaryExp -> ...)
+191	44	+	Reduce 62 (MulExp -> ...)
+192	46	+	Reduce 66 (AddExp -> ...)
+193	47	+	Shift 69
+194	69	ID	Shift 33
+195	33	;	Reduce 47 (LVal -> ...)
+196	41	;	Reduce 49 (PrimaryExp -> ...)
+197	42	;	Reduce 53 (UnaryExp -> ...)
+198	44	;	Reduce 62 (MulExp -> ...)
+199	90	;	Reduce 67 (AddExp -> ...)
+200	47	;	Reduce 69 (RelExp -> ...)
+201	48	;	Reduce 74 (EqExp -> ...)
+202	49	;	Reduce 77 (LAndExp -> ...)
+203	50	;	Reduce 79 (LOrExp -> ...)
+204	51	;	Reduce 45 (Exp -> ...)
+205	126	;	Shift 128
 
-[词法错误] 行号 7, 列号 35: 无法识别的字符 '&'
+[词法错误] 行号 8, 列号 35: 无法识别的字符 '&'
           该字符将被跳过，继续分析后续内容。
-196	128	if	Reduce 37 (Stmt -> ...)
-197	115	if	Reduce 36 (BlockItem -> ...)
-198	114	if	Reduce 33 (BlockItemList -> ...)
-199	106	if	Shift 109
-200	109	(	Shift 120
-201	120	(	Shift 38
-202	38	ID	Shift 33
-203	33	>=	Reduce 47 (LVal -> ...)
-204	41	>=	Reduce 49 (PrimaryExp -> ...)
-205	42	>=	Reduce 53 (UnaryExp -> ...)
-206	44	>=	Reduce 62 (MulExp -> ...)
-207	46	>=	Reduce 66 (AddExp -> ...)
-208	47	>=	Reduce 69 (RelExp -> ...)
-209	48	>=	Shift 74
-210	74	INT	Shift 34
-211	34	&&	Reduce 51 (Number -> ...)
-212	43	&&	Reduce 50 (PrimaryExp -> ...)
-213	42	&&	Reduce 53 (UnaryExp -> ...)
-214	44	&&	Reduce 62 (MulExp -> ...)
-215	46	&&	Reduce 66 (AddExp -> ...)
-216	95	&&	Reduce 73 (RelExp -> ...)
-217	48	&&	Reduce 74 (EqExp -> ...)
-218	49	&&	Reduce 77 (LAndExp -> ...)
-219	50	&&	Shift 77
-220	77	ID	Shift 33
-221	33	!=	Reduce 47 (LVal -> ...)
-222	41	!=	Reduce 49 (PrimaryExp -> ...)
-223	42	!=	Reduce 53 (UnaryExp -> ...)
-224	44	!=	Reduce 62 (MulExp -> ...)
-225	46	!=	Reduce 66 (AddExp -> ...)
-226	47	!=	Reduce 69 (RelExp -> ...)
-227	48	!=	Reduce 74 (EqExp -> ...)
-228	98	!=	Shift 76
-229	76	INT	Shift 34
-230	34	)	Reduce 51 (Number -> ...)
-231	43	)	Reduce 50 (PrimaryExp -> ...)
-232	42	)	Reduce 53 (UnaryExp -> ...)
-233	44	)	Reduce 62 (MulExp -> ...)
-234	46	)	Reduce 66 (AddExp -> ...)
-235	47	)	Reduce 69 (RelExp -> ...)
-236	97	)	Reduce 76 (EqExp -> ...)
-237	98	)	Reduce 78 (LAndExp -> ...)
-238	50	)	Reduce 79 (LOrExp -> ...)
-239	51	)	Reduce 45 (Exp -> ...)
-240	64	)	Shift 86
-241	86	||	Reduce 48 (PrimaryExp -> ...)
-242	42	||	Reduce 53 (UnaryExp -> ...)
-243	44	||	Reduce 62 (MulExp -> ...)
-244	46	||	Reduce 66 (AddExp -> ...)
-245	47	||	Reduce 69 (RelExp -> ...)
-246	48	||	Reduce 74 (EqExp -> ...)
-247	49	||	Reduce 77 (LAndExp -> ...)
-248	50	||	Reduce 79 (LOrExp -> ...)
-249	125	||	Shift 78
-250	78	(	Shift 38
-251	38	ID	Shift 33
-252	33	<	Reduce 47 (LVal -> ...)
-253	41	<	Reduce 49 (PrimaryExp -> ...)
-254	42	<	Reduce 53 (UnaryExp -> ...)
-255	44	<	Reduce 62 (MulExp -> ...)
-256	46	<	Reduce 66 (AddExp -> ...)
-257	47	<	Reduce 69 (RelExp -> ...)
-258	48	<	Shift 72
-259	72	ID	Shift 33
-260	33	)	Reduce 47 (LVal -> ...)
-261	41	)	Reduce 49 (PrimaryExp -> ...)
-262	42	)	Reduce 53 (UnaryExp -> ...)
-263	44	)	Reduce 62 (MulExp -> ...)
-264	46	)	Reduce 66 (AddExp -> ...)
-265	93	)	Reduce 70 (RelExp -> ...)
-266	48	)	Reduce 74 (EqExp -> ...)
-267	49	)	Reduce 77 (LAndExp -> ...)
-268	50	)	Reduce 79 (LOrExp -> ...)
-269	51	)	Reduce 45 (Exp -> ...)
-270	64	)	Shift 86
-271	86	)	Reduce 48 (PrimaryExp -> ...)
+206	128	if	Reduce 37 (Stmt -> ...)
+207	115	if	Reduce 36 (BlockItem -> ...)
+208	114	if	Reduce 33 (BlockItemList -> ...)
+209	106	if	Shift 109
+210	109	(	Shift 120
+211	120	(	Shift 38
+212	38	ID	Shift 33
+213	33	>=	Reduce 47 (LVal -> ...)
+214	41	>=	Reduce 49 (PrimaryExp -> ...)
+215	42	>=	Reduce 53 (UnaryExp -> ...)
+216	44	>=	Reduce 62 (MulExp -> ...)
+217	46	>=	Reduce 66 (AddExp -> ...)
+218	47	>=	Reduce 69 (RelExp -> ...)
+219	48	>=	Shift 74
+220	74	INT	Shift 34
+221	34	&&	Reduce 51 (Number -> ...)
+222	43	&&	Reduce 50 (PrimaryExp -> ...)
+223	42	&&	Reduce 53 (UnaryExp -> ...)
+224	44	&&	Reduce 62 (MulExp -> ...)
+225	46	&&	Reduce 66 (AddExp -> ...)
+226	95	&&	Reduce 73 (RelExp -> ...)
+227	48	&&	Reduce 74 (EqExp -> ...)
+228	49	&&	Reduce 77 (LAndExp -> ...)
+229	50	&&	Shift 77
+230	77	ID	Shift 33
+231	33	!=	Reduce 47 (LVal -> ...)
+232	41	!=	Reduce 49 (PrimaryExp -> ...)
+233	42	!=	Reduce 53 (UnaryExp -> ...)
+234	44	!=	Reduce 62 (MulExp -> ...)
+235	46	!=	Reduce 66 (AddExp -> ...)
+236	47	!=	Reduce 69 (RelExp -> ...)
+237	48	!=	Reduce 74 (EqExp -> ...)
+238	98	!=	Shift 76
+239	76	INT	Shift 34
+240	34	)	Reduce 51 (Number -> ...)
+241	43	)	Reduce 50 (PrimaryExp -> ...)
+242	42	)	Reduce 53 (UnaryExp -> ...)
+243	44	)	Reduce 62 (MulExp -> ...)
+244	46	)	Reduce 66 (AddExp -> ...)
+245	47	)	Reduce 69 (RelExp -> ...)
+246	97	)	Reduce 76 (EqExp -> ...)
+247	98	)	Reduce 78 (LAndExp -> ...)
+248	50	)	Reduce 79 (LOrExp -> ...)
+249	51	)	Reduce 45 (Exp -> ...)
+250	64	)	Shift 86
+251	86	||	Reduce 48 (PrimaryExp -> ...)
+252	42	||	Reduce 53 (UnaryExp -> ...)
+253	44	||	Reduce 62 (MulExp -> ...)
+254	46	||	Reduce 66 (AddExp -> ...)
+255	47	||	Reduce 69 (RelExp -> ...)
+256	48	||	Reduce 74 (EqExp -> ...)
+257	49	||	Reduce 77 (LAndExp -> ...)
+258	50	||	Reduce 79 (LOrExp -> ...)
+259	125	||	Shift 78
+260	78	(	Shift 38
+261	38	ID	Shift 33
+262	33	<	Reduce 47 (LVal -> ...)
+263	41	<	Reduce 49 (PrimaryExp -> ...)
+264	42	<	Reduce 53 (UnaryExp -> ...)
+265	44	<	Reduce 62 (MulExp -> ...)
+266	46	<	Reduce 66 (AddExp -> ...)
+267	47	<	Reduce 69 (RelExp -> ...)
+268	48	<	Shift 72
+269	72	ID	Shift 33
+270	33	)	Reduce 47 (LVal -> ...)
+271	41	)	Reduce 49 (PrimaryExp -> ...)
 272	42	)	Reduce 53 (UnaryExp -> ...)
 273	44	)	Reduce 62 (MulExp -> ...)
 274	46	)	Reduce 66 (AddExp -> ...)
-275	47	)	Reduce 69 (RelExp -> ...)
+275	93	)	Reduce 70 (RelExp -> ...)
 276	48	)	Reduce 74 (EqExp -> ...)
 277	49	)	Reduce 77 (LAndExp -> ...)
-278	99	)	Reduce 80 (LOrExp -> ...)
-279	125	)	Reduce 46 (Cond -> ...)
-280	124	)	Shift 127
-281	127	{	Shift 100
-282	100	ID	Reduce 34 (BlockItemList -> ...)
-283	106	ID	Shift 33
-284	33	=	Reduce 47 (LVal -> ...)
-285	118	=	Shift 122
-286	122	ID	Shift 33
-287	33	+	Reduce 47 (LVal -> ...)
-288	41	+	Reduce 49 (PrimaryExp -> ...)
-289	42	+	Reduce 53 (UnaryExp -> ...)
-290	44	+	Reduce 62 (MulExp -> ...)
-291	46	+	Reduce 66 (AddExp -> ...)
-292	47	+	Shift 69
-293	69	INT	Shift 34
-294	34	;	Reduce 51 (Number -> ...)
-295	43	;	Reduce 50 (PrimaryExp -> ...)
-296	42	;	Reduce 53 (UnaryExp -> ...)
-297	44	;	Reduce 62 (MulExp -> ...)
-298	90	;	Reduce 67 (AddExp -> ...)
-299	47	;	Reduce 69 (RelExp -> ...)
-300	48	;	Reduce 74 (EqExp -> ...)
-301	49	;	Reduce 77 (LAndExp -> ...)
-302	50	;	Reduce 79 (LOrExp -> ...)
-303	51	;	Reduce 45 (Exp -> ...)
-304	126	;	Shift 128
-305	128	}	Reduce 37 (Stmt -> ...)
-306	115	}	Reduce 36 (BlockItem -> ...)
-307	114	}	Reduce 33 (BlockItemList -> ...)
-308	106	}	Shift 110
-309	110	else	Reduce 32 (Block -> ...)
-310	113	else	Reduce 39 (Stmt -> ...)
-311	129	else	Shift 130
-312	130	{	Shift 100
-313	100	ID	Reduce 34 (BlockItemList -> ...)
-314	106	ID	Shift 33
-315	33	=	Reduce 47 (LVal -> ...)
-316	118	=	Shift 122
-317	122	ID	Shift 33
-318	33	-	Reduce 47 (LVal -> ...)
-319	41	-	Reduce 49 (PrimaryExp -> ...)
-320	42	-	Reduce 53 (UnaryExp -> ...)
-321	44	-	Reduce 62 (MulExp -> ...)
-322	46	-	Reduce 66 (AddExp -> ...)
-323	47	-	Shift 70
-324	70	INT	Shift 34
-325	34	;	Reduce 51 (Number -> ...)
-326	43	;	Reduce 50 (PrimaryExp -> ...)
-327	42	;	Reduce 53 (UnaryExp -> ...)
-328	44	;	Reduce 62 (MulExp -> ...)
-329	91	;	Reduce 68 (AddExp -> ...)
-330	47	;	Reduce 69 (RelExp -> ...)
-331	48	;	Reduce 74 (EqExp -> ...)
-332	49	;	Reduce 77 (LAndExp -> ...)
-333	50	;	Reduce 79 (LOrExp -> ...)
-334	51	;	Reduce 45 (Exp -> ...)
-335	126	;	Shift 128
-336	128	}	Reduce 37 (Stmt -> ...)
-337	115	}	Reduce 36 (BlockItem -> ...)
-338	114	}	Reduce 33 (BlockItemList -> ...)
-339	106	}	Shift 110
-340	110	if	Reduce 32 (Block -> ...)
-341	113	if	Reduce 39 (Stmt -> ...)
-342	131	if	Reduce 42 (Stmt -> ...)
-343	115	if	Reduce 36 (BlockItem -> ...)
-344	114	if	Reduce 33 (BlockItemList -> ...)
-345	106	if	Shift 109
-346	109	(	Shift 120
-347	120	ID	Shift 33
-348	33	>	Reduce 47 (LVal -> ...)
-349	41	>	Reduce 49 (PrimaryExp -> ...)
-350	42	>	Reduce 53 (UnaryExp -> ...)
-351	44	>	Reduce 62 (MulExp -> ...)
-352	46	>	Reduce 66 (AddExp -> ...)
-353	47	>	Reduce 69 (RelExp -> ...)
-354	48	>	Shift 71
-355	71	FLOAT	Shift 35
-356	35	&&	Reduce 52 (Number -> ...)
-357	43	&&	Reduce 50 (PrimaryExp -> ...)
-358	42	&&	Reduce 53 (UnaryExp -> ...)
-359	44	&&	Reduce 62 (MulExp -> ...)
-360	46	&&	Reduce 66 (AddExp -> ...)
-361	92	&&	Reduce 71 (RelExp -> ...)
-362	48	&&	Reduce 74 (EqExp -> ...)
-363	49	&&	Reduce 77 (LAndExp -> ...)
-364	50	&&	Shift 77
-365	77	ID	Shift 33
-366	33	<=	Reduce 47 (LVal -> ...)
-367	41	<=	Reduce 49 (PrimaryExp -> ...)
-368	42	<=	Reduce 53 (UnaryExp -> ...)
-369	44	<=	Reduce 62 (MulExp -> ...)
-370	46	<=	Reduce 66 (AddExp -> ...)
-371	47	<=	Reduce 69 (RelExp -> ...)
-372	48	<=	Shift 73
-373	73	FLOAT	Shift 35
-374	35	)	Reduce 52 (Number -> ...)
-375	43	)	Reduce 50 (PrimaryExp -> ...)
-376	42	)	Reduce 53 (UnaryExp -> ...)
-377	44	)	Reduce 62 (MulExp -> ...)
-378	46	)	Reduce 66 (AddExp -> ...)
-379	94	)	Reduce 72 (RelExp -> ...)
-380	48	)	Reduce 74 (EqExp -> ...)
-381	98	)	Reduce 78 (LAndExp -> ...)
-382	50	)	Reduce 79 (LOrExp -> ...)
-383	125	)	Reduce 46 (Cond -> ...)
-384	124	)	Shift 127
-385	127	{	Shift 100
-386	100	ID	Reduce 34 (BlockItemList -> ...)
-387	106	ID	Shift 33
-388	33	=	Reduce 47 (LVal -> ...)
-389	118	=	Shift 122
-390	122	(	Shift 38
-391	38	ID	Shift 33
-392	33	+	Reduce 47 (LVal -> ...)
-393	41	+	Reduce 49 (PrimaryExp -> ...)
-394	42	+	Reduce 53 (UnaryExp -> ...)
-395	44	+	Reduce 62 (MulExp -> ...)
-396	46	+	Reduce 66 (AddExp -> ...)
-397	47	+	Shift 69
-398	69	ID	Shift 33
-399	33	)	Reduce 47 (LVal -> ...)
-400	41	)	Reduce 49 (PrimaryExp -> ...)
-401	42	)	Reduce 53 (UnaryExp -> ...)
-402	44	)	Reduce 62 (MulExp -> ...)
-403	90	)	Reduce 67 (AddExp -> ...)
-404	47	)	Reduce 69 (RelExp -> ...)
-405	48	)	Reduce 74 (EqExp -> ...)
-406	49	)	Reduce 77 (LAndExp -> ...)
-407	50	)	Reduce 79 (LOrExp -> ...)
-408	51	)	Reduce 45 (Exp -> ...)
-409	64	)	Shift 86
-410	86	*	Reduce 48 (PrimaryExp -> ...)
-411	42	*	Reduce 53 (UnaryExp -> ...)
-412	44	*	Reduce 62 (MulExp -> ...)
-413	46	*	Shift 66
-414	66	(	Shift 38
-415	38	ID	Shift 33
-416	33	-	Reduce 47 (LVal -> ...)
-417	41	-	Reduce 49 (PrimaryExp -> ...)
-418	42	-	Reduce 53 (UnaryExp -> ...)
-419	44	-	Reduce 62 (MulExp -> ...)
-420	46	-	Reduce 66 (AddExp -> ...)
-421	47	-	Shift 70
-422	70	INT	Shift 34
-423	34	)	Reduce 51 (Number -> ...)
-424	43	)	Reduce 50 (PrimaryExp -> ...)
-425	42	)	Reduce 53 (UnaryExp -> ...)
-426	44	)	Reduce 62 (MulExp -> ...)
-427	91	)	Reduce 68 (AddExp -> ...)
-428	47	)	Reduce 69 (RelExp -> ...)
-429	48	)	Reduce 74 (EqExp -> ...)
-430	49	)	Reduce 77 (LAndExp -> ...)
-431	50	)	Reduce 79 (LOrExp -> ...)
-432	51	)	Reduce 45 (Exp -> ...)
-433	64	)	Shift 86
-434	86	;	Reduce 48 (PrimaryExp -> ...)
-435	42	;	Reduce 53 (UnaryExp -> ...)
-436	87	;	Reduce 63 (MulExp -> ...)
-437	46	;	Reduce 66 (AddExp -> ...)
-438	47	;	Reduce 69 (RelExp -> ...)
-439	48	;	Reduce 74 (EqExp -> ...)
-440	49	;	Reduce 77 (LAndExp -> ...)
-441	50	;	Reduce 79 (LOrExp -> ...)
-442	51	;	Reduce 45 (Exp -> ...)
-443	126	;	Shift 128
-444	128	}	Reduce 37 (Stmt -> ...)
-445	115	}	Reduce 36 (BlockItem -> ...)
-446	114	}	Reduce 33 (BlockItemList -> ...)
-447	106	}	Shift 110
-448	110	else	Reduce 32 (Block -> ...)
-449	113	else	Reduce 39 (Stmt -> ...)
-450	129	else	Shift 130
-451	130	{	Shift 100
-452	100	if	Reduce 34 (BlockItemList -> ...)
-453	106	if	Shift 109
-454	109	(	Shift 120
-455	120	ID	Shift 33
-456	33	==	Reduce 47 (LVal -> ...)
-457	41	==	Reduce 49 (PrimaryExp -> ...)
-458	42	==	Reduce 53 (UnaryExp -> ...)
-459	44	==	Reduce 62 (MulExp -> ...)
-460	46	==	Reduce 66 (AddExp -> ...)
-461	47	==	Reduce 69 (RelExp -> ...)
-462	48	==	Reduce 74 (EqExp -> ...)
-463	49	==	Shift 75
-464	75	ID	Shift 33
-465	33	)	Reduce 47 (LVal -> ...)
-466	41	)	Reduce 49 (PrimaryExp -> ...)
-467	42	)	Reduce 53 (UnaryExp -> ...)
-468	44	)	Reduce 62 (MulExp -> ...)
-469	46	)	Reduce 66 (AddExp -> ...)
-470	47	)	Reduce 69 (RelExp -> ...)
-471	96	)	Reduce 75 (EqExp -> ...)
-472	49	)	Reduce 77 (LAndExp -> ...)
-473	50	)	Reduce 79 (LOrExp -> ...)
-474	125	)	Reduce 46 (Cond -> ...)
-475	124	)	Shift 127
-476	127	{	Shift 100
-477	100	ID	Reduce 34 (BlockItemList -> ...)
-478	106	ID	Shift 33
-479	33	=	Reduce 47 (LVal -> ...)
-480	118	=	Shift 122
-481	122	ID	Shift 33
-482	33	+	Reduce 47 (LVal -> ...)
-483	41	+	Reduce 49 (PrimaryExp -> ...)
-484	42	+	Reduce 53 (UnaryExp -> ...)
-485	44	+	Reduce 62 (MulExp -> ...)
-486	46	+	Reduce 66 (AddExp -> ...)
-487	47	+	Shift 69
-488	69	INT	Shift 34
-489	34	;	Reduce 51 (Number -> ...)
-490	43	;	Reduce 50 (PrimaryExp -> ...)
-491	42	;	Reduce 53 (UnaryExp -> ...)
-492	44	;	Reduce 62 (MulExp -> ...)
-493	90	;	Reduce 67 (AddExp -> ...)
-494	47	;	Reduce 69 (RelExp -> ...)
-495	48	;	Reduce 74 (EqExp -> ...)
-496	49	;	Reduce 77 (LAndExp -> ...)
-497	50	;	Reduce 79 (LOrExp -> ...)
-498	51	;	Reduce 45 (Exp -> ...)
-499	126	;	Shift 128
-500	128	}	Reduce 37 (Stmt -> ...)
-501	115	}	Reduce 36 (BlockItem -> ...)
-502	114	}	Reduce 33 (BlockItemList -> ...)
-503	106	}	Shift 110
-504	110	else	Reduce 32 (Block -> ...)
-505	113	else	Reduce 39 (Stmt -> ...)
-506	129	else	Shift 130
-507	130	{	Shift 100
-508	100	ID	Reduce 34 (BlockItemList -> ...)
-509	106	ID	Shift 33
-510	33	=	Reduce 47 (LVal -> ...)
-511	118	=	Shift 122
-512	122	ID	Shift 33
-513	33	-	Reduce 47 (LVal -> ...)
-514	41	-	Reduce 49 (PrimaryExp -> ...)
-515	42	-	Reduce 53 (UnaryExp -> ...)
-516	44	-	Reduce 62 (MulExp -> ...)
-517	46	-	Reduce 66 (AddExp -> ...)
-518	47	-	Shift 70
-519	70	INT	Shift 34
-520	34	;	Reduce 51 (Number -> ...)
-521	43	;	Reduce 50 (PrimaryExp -> ...)
-522	42	;	Reduce 53 (UnaryExp -> ...)
-523	44	;	Reduce 62 (MulExp -> ...)
-524	91	;	Reduce 68 (AddExp -> ...)
-525	47	;	Reduce 69 (RelExp -> ...)
-526	48	;	Reduce 74 (EqExp -> ...)
-527	49	;	Reduce 77 (LAndExp -> ...)
-528	50	;	Reduce 79 (LOrExp -> ...)
-529	51	;	Reduce 45 (Exp -> ...)
-530	126	;	Shift 128
-531	128	}	Reduce 37 (Stmt -> ...)
-532	115	}	Reduce 36 (BlockItem -> ...)
-533	114	}	Reduce 33 (BlockItemList -> ...)
-534	106	}	Shift 110
-535	110	}	Reduce 32 (Block -> ...)
-536	113	}	Reduce 39 (Stmt -> ...)
-537	131	}	Reduce 42 (Stmt -> ...)
-538	115	}	Reduce 36 (BlockItem -> ...)
-539	114	}	Reduce 33 (BlockItemList -> ...)
-540	106	}	Shift 110
-541	110	return	Reduce 32 (Block -> ...)
-542	113	return	Reduce 39 (Stmt -> ...)
-543	131	return	Reduce 42 (Stmt -> ...)
-544	115	return	Reduce 36 (BlockItem -> ...)
-545	114	return	Reduce 33 (BlockItemList -> ...)
-546	106	return	Shift 108
-547	108	;	Reduce 44 (OptExp -> ...)
-548	119	;	Shift 123
-549	123	}	Reduce 40 (Stmt -> ...)
-550	115	}	Reduce 36 (BlockItem -> ...)
-551	114	}	Reduce 33 (BlockItemList -> ...)
-552	106	}	Shift 110
-553	110	$	Reduce 32 (Block -> ...)
-554	103	$	Reduce 22 (FuncDef -> ...)
-555	12	$	Reduce 6 (Unit -> ...)
-556	7	$	Reduce 3 (UnitList -> ...)
-557	2	$	Reduce 2 (CompUnit -> ...)
-558	1	$	ACCEPT!
+278	50	)	Reduce 79 (LOrExp -> ...)
+279	51	)	Reduce 45 (Exp -> ...)
+280	64	)	Shift 86
+281	86	)	Reduce 48 (PrimaryExp -> ...)
+282	42	)	Reduce 53 (UnaryExp -> ...)
+283	44	)	Reduce 62 (MulExp -> ...)
+284	46	)	Reduce 66 (AddExp -> ...)
+285	47	)	Reduce 69 (RelExp -> ...)
+286	48	)	Reduce 74 (EqExp -> ...)
+287	49	)	Reduce 77 (LAndExp -> ...)
+288	99	)	Reduce 80 (LOrExp -> ...)
+289	125	)	Reduce 46 (Cond -> ...)
+290	124	)	Shift 127
+291	127	{	Shift 100
+292	100	ID	Reduce 34 (BlockItemList -> ...)
+293	106	ID	Shift 33
+294	33	=	Reduce 47 (LVal -> ...)
+295	118	=	Shift 122
+296	122	ID	Shift 33
+297	33	+	Reduce 47 (LVal -> ...)
+298	41	+	Reduce 49 (PrimaryExp -> ...)
+299	42	+	Reduce 53 (UnaryExp -> ...)
+300	44	+	Reduce 62 (MulExp -> ...)
+301	46	+	Reduce 66 (AddExp -> ...)
+302	47	+	Shift 69
+303	69	INT	Shift 34
+304	34	;	Reduce 51 (Number -> ...)
+305	43	;	Reduce 50 (PrimaryExp -> ...)
+306	42	;	Reduce 53 (UnaryExp -> ...)
+307	44	;	Reduce 62 (MulExp -> ...)
+308	90	;	Reduce 67 (AddExp -> ...)
+309	47	;	Reduce 69 (RelExp -> ...)
+310	48	;	Reduce 74 (EqExp -> ...)
+311	49	;	Reduce 77 (LAndExp -> ...)
+312	50	;	Reduce 79 (LOrExp -> ...)
+313	51	;	Reduce 45 (Exp -> ...)
+314	126	;	Shift 128
+315	128	}	Reduce 37 (Stmt -> ...)
+316	115	}	Reduce 36 (BlockItem -> ...)
+317	114	}	Reduce 33 (BlockItemList -> ...)
+318	106	}	Shift 110
+319	110	else	Reduce 32 (Block -> ...)
+320	113	else	Reduce 39 (Stmt -> ...)
+321	129	else	Shift 130
+322	130	{	Shift 100
+323	100	ID	Reduce 34 (BlockItemList -> ...)
+324	106	ID	Shift 33
+325	33	=	Reduce 47 (LVal -> ...)
+326	118	=	Shift 122
+327	122	ID	Shift 33
+328	33	-	Reduce 47 (LVal -> ...)
+329	41	-	Reduce 49 (PrimaryExp -> ...)
+330	42	-	Reduce 53 (UnaryExp -> ...)
+331	44	-	Reduce 62 (MulExp -> ...)
+332	46	-	Reduce 66 (AddExp -> ...)
+333	47	-	Shift 70
+334	70	INT	Shift 34
+335	34	;	Reduce 51 (Number -> ...)
+336	43	;	Reduce 50 (PrimaryExp -> ...)
+337	42	;	Reduce 53 (UnaryExp -> ...)
+338	44	;	Reduce 62 (MulExp -> ...)
+339	91	;	Reduce 68 (AddExp -> ...)
+340	47	;	Reduce 69 (RelExp -> ...)
+341	48	;	Reduce 74 (EqExp -> ...)
+342	49	;	Reduce 77 (LAndExp -> ...)
+343	50	;	Reduce 79 (LOrExp -> ...)
+344	51	;	Reduce 45 (Exp -> ...)
+345	126	;	Shift 128
+346	128	}	Reduce 37 (Stmt -> ...)
+347	115	}	Reduce 36 (BlockItem -> ...)
+348	114	}	Reduce 33 (BlockItemList -> ...)
+349	106	}	Shift 110
+350	110	if	Reduce 32 (Block -> ...)
+351	113	if	Reduce 39 (Stmt -> ...)
+352	131	if	Reduce 42 (Stmt -> ...)
+353	115	if	Reduce 36 (BlockItem -> ...)
+354	114	if	Reduce 33 (BlockItemList -> ...)
+355	106	if	Shift 109
+356	109	(	Shift 120
+357	120	ID	Shift 33
+358	33	>	Reduce 47 (LVal -> ...)
+359	41	>	Reduce 49 (PrimaryExp -> ...)
+360	42	>	Reduce 53 (UnaryExp -> ...)
+361	44	>	Reduce 62 (MulExp -> ...)
+362	46	>	Reduce 66 (AddExp -> ...)
+363	47	>	Reduce 69 (RelExp -> ...)
+364	48	>	Shift 71
+365	71	FLOAT	Shift 35
+366	35	&&	Reduce 52 (Number -> ...)
+367	43	&&	Reduce 50 (PrimaryExp -> ...)
+368	42	&&	Reduce 53 (UnaryExp -> ...)
+369	44	&&	Reduce 62 (MulExp -> ...)
+370	46	&&	Reduce 66 (AddExp -> ...)
+371	92	&&	Reduce 71 (RelExp -> ...)
+372	48	&&	Reduce 74 (EqExp -> ...)
+373	49	&&	Reduce 77 (LAndExp -> ...)
+374	50	&&	Shift 77
+375	77	ID	Shift 33
+376	33	<=	Reduce 47 (LVal -> ...)
+377	41	<=	Reduce 49 (PrimaryExp -> ...)
+378	42	<=	Reduce 53 (UnaryExp -> ...)
+379	44	<=	Reduce 62 (MulExp -> ...)
+380	46	<=	Reduce 66 (AddExp -> ...)
+381	47	<=	Reduce 69 (RelExp -> ...)
+382	48	<=	Shift 73
+383	73	FLOAT	Shift 35
+384	35	)	Reduce 52 (Number -> ...)
+385	43	)	Reduce 50 (PrimaryExp -> ...)
+386	42	)	Reduce 53 (UnaryExp -> ...)
+387	44	)	Reduce 62 (MulExp -> ...)
+388	46	)	Reduce 66 (AddExp -> ...)
+389	94	)	Reduce 72 (RelExp -> ...)
+390	48	)	Reduce 74 (EqExp -> ...)
+391	98	)	Reduce 78 (LAndExp -> ...)
+392	50	)	Reduce 79 (LOrExp -> ...)
+393	125	)	Reduce 46 (Cond -> ...)
+394	124	)	Shift 127
+395	127	{	Shift 100
+396	100	ID	Reduce 34 (BlockItemList -> ...)
+397	106	ID	Shift 33
+398	33	=	Reduce 47 (LVal -> ...)
+399	118	=	Shift 122
+400	122	(	Shift 38
+401	38	ID	Shift 33
+402	33	+	Reduce 47 (LVal -> ...)
+403	41	+	Reduce 49 (PrimaryExp -> ...)
+404	42	+	Reduce 53 (UnaryExp -> ...)
+405	44	+	Reduce 62 (MulExp -> ...)
+406	46	+	Reduce 66 (AddExp -> ...)
+407	47	+	Shift 69
+408	69	ID	Shift 33
+409	33	)	Reduce 47 (LVal -> ...)
+410	41	)	Reduce 49 (PrimaryExp -> ...)
+411	42	)	Reduce 53 (UnaryExp -> ...)
+412	44	)	Reduce 62 (MulExp -> ...)
+413	90	)	Reduce 67 (AddExp -> ...)
+414	47	)	Reduce 69 (RelExp -> ...)
+415	48	)	Reduce 74 (EqExp -> ...)
+416	49	)	Reduce 77 (LAndExp -> ...)
+417	50	)	Reduce 79 (LOrExp -> ...)
+418	51	)	Reduce 45 (Exp -> ...)
+419	64	)	Shift 86
+420	86	*	Reduce 48 (PrimaryExp -> ...)
+421	42	*	Reduce 53 (UnaryExp -> ...)
+422	44	*	Reduce 62 (MulExp -> ...)
+423	46	*	Shift 66
+424	66	(	Shift 38
+425	38	ID	Shift 33
+426	33	-	Reduce 47 (LVal -> ...)
+427	41	-	Reduce 49 (PrimaryExp -> ...)
+428	42	-	Reduce 53 (UnaryExp -> ...)
+429	44	-	Reduce 62 (MulExp -> ...)
+430	46	-	Reduce 66 (AddExp -> ...)
+431	47	-	Shift 70
+432	70	INT	Shift 34
+433	34	)	Reduce 51 (Number -> ...)
+434	43	)	Reduce 50 (PrimaryExp -> ...)
+435	42	)	Reduce 53 (UnaryExp -> ...)
+436	44	)	Reduce 62 (MulExp -> ...)
+437	91	)	Reduce 68 (AddExp -> ...)
+438	47	)	Reduce 69 (RelExp -> ...)
+439	48	)	Reduce 74 (EqExp -> ...)
+440	49	)	Reduce 77 (LAndExp -> ...)
+441	50	)	Reduce 79 (LOrExp -> ...)
+442	51	)	Reduce 45 (Exp -> ...)
+443	64	)	Shift 86
+444	86	;	Reduce 48 (PrimaryExp -> ...)
+445	42	;	Reduce 53 (UnaryExp -> ...)
+446	87	;	Reduce 63 (MulExp -> ...)
+447	46	;	Reduce 66 (AddExp -> ...)
+448	47	;	Reduce 69 (RelExp -> ...)
+449	48	;	Reduce 74 (EqExp -> ...)
+450	49	;	Reduce 77 (LAndExp -> ...)
+451	50	;	Reduce 79 (LOrExp -> ...)
+452	51	;	Reduce 45 (Exp -> ...)
+453	126	;	Shift 128
+454	128	}	Reduce 37 (Stmt -> ...)
+455	115	}	Reduce 36 (BlockItem -> ...)
+456	114	}	Reduce 33 (BlockItemList -> ...)
+457	106	}	Shift 110
+458	110	else	Reduce 32 (Block -> ...)
+459	113	else	Reduce 39 (Stmt -> ...)
+460	129	else	Shift 130
+461	130	{	Shift 100
+462	100	if	Reduce 34 (BlockItemList -> ...)
+463	106	if	Shift 109
+464	109	(	Shift 120
+465	120	ID	Shift 33
+466	33	==	Reduce 47 (LVal -> ...)
+467	41	==	Reduce 49 (PrimaryExp -> ...)
+468	42	==	Reduce 53 (UnaryExp -> ...)
+469	44	==	Reduce 62 (MulExp -> ...)
+470	46	==	Reduce 66 (AddExp -> ...)
+471	47	==	Reduce 69 (RelExp -> ...)
+472	48	==	Reduce 74 (EqExp -> ...)
+473	49	==	Shift 75
+474	75	ID	Shift 33
+475	33	)	Reduce 47 (LVal -> ...)
+476	41	)	Reduce 49 (PrimaryExp -> ...)
+477	42	)	Reduce 53 (UnaryExp -> ...)
+478	44	)	Reduce 62 (MulExp -> ...)
+479	46	)	Reduce 66 (AddExp -> ...)
+480	47	)	Reduce 69 (RelExp -> ...)
+481	96	)	Reduce 75 (EqExp -> ...)
+482	49	)	Reduce 77 (LAndExp -> ...)
+483	50	)	Reduce 79 (LOrExp -> ...)
+484	125	)	Reduce 46 (Cond -> ...)
+485	124	)	Shift 127
+486	127	{	Shift 100
+487	100	ID	Reduce 34 (BlockItemList -> ...)
+488	106	ID	Shift 33
+489	33	=	Reduce 47 (LVal -> ...)
+490	118	=	Shift 122
+491	122	ID	Shift 33
+492	33	+	Reduce 47 (LVal -> ...)
+493	41	+	Reduce 49 (PrimaryExp -> ...)
+494	42	+	Reduce 53 (UnaryExp -> ...)
+495	44	+	Reduce 62 (MulExp -> ...)
+496	46	+	Reduce 66 (AddExp -> ...)
+497	47	+	Shift 69
+498	69	INT	Shift 34
+499	34	;	Reduce 51 (Number -> ...)
+500	43	;	Reduce 50 (PrimaryExp -> ...)
+501	42	;	Reduce 53 (UnaryExp -> ...)
+502	44	;	Reduce 62 (MulExp -> ...)
+503	90	;	Reduce 67 (AddExp -> ...)
+504	47	;	Reduce 69 (RelExp -> ...)
+505	48	;	Reduce 74 (EqExp -> ...)
+506	49	;	Reduce 77 (LAndExp -> ...)
+507	50	;	Reduce 79 (LOrExp -> ...)
+508	51	;	Reduce 45 (Exp -> ...)
+509	126	;	Shift 128
+510	128	}	Reduce 37 (Stmt -> ...)
+511	115	}	Reduce 36 (BlockItem -> ...)
+512	114	}	Reduce 33 (BlockItemList -> ...)
+513	106	}	Shift 110
+514	110	else	Reduce 32 (Block -> ...)
+515	113	else	Reduce 39 (Stmt -> ...)
+516	129	else	Shift 130
+517	130	{	Shift 100
+518	100	ID	Reduce 34 (BlockItemList -> ...)
+519	106	ID	Shift 33
+520	33	=	Reduce 47 (LVal -> ...)
+521	118	=	Shift 122
+522	122	ID	Shift 33
+523	33	-	Reduce 47 (LVal -> ...)
+524	41	-	Reduce 49 (PrimaryExp -> ...)
+525	42	-	Reduce 53 (UnaryExp -> ...)
+526	44	-	Reduce 62 (MulExp -> ...)
+527	46	-	Reduce 66 (AddExp -> ...)
+528	47	-	Shift 70
+529	70	INT	Shift 34
+530	34	;	Reduce 51 (Number -> ...)
+531	43	;	Reduce 50 (PrimaryExp -> ...)
+532	42	;	Reduce 53 (UnaryExp -> ...)
+533	44	;	Reduce 62 (MulExp -> ...)
+534	91	;	Reduce 68 (AddExp -> ...)
+535	47	;	Reduce 69 (RelExp -> ...)
+536	48	;	Reduce 74 (EqExp -> ...)
+537	49	;	Reduce 77 (LAndExp -> ...)
+538	50	;	Reduce 79 (LOrExp -> ...)
+539	51	;	Reduce 45 (Exp -> ...)
+540	126	;	Shift 128
+541	128	}	Reduce 37 (Stmt -> ...)
+542	115	}	Reduce 36 (BlockItem -> ...)
+543	114	}	Reduce 33 (BlockItemList -> ...)
+544	106	}	Shift 110
+545	110	}	Reduce 32 (Block -> ...)
+546	113	}	Reduce 39 (Stmt -> ...)
+547	131	}	Reduce 42 (Stmt -> ...)
+548	115	}	Reduce 36 (BlockItem -> ...)
+549	114	}	Reduce 33 (BlockItemList -> ...)
+550	106	}	Shift 110
+551	110	return	Reduce 32 (Block -> ...)
+552	113	return	Reduce 39 (Stmt -> ...)
+553	131	return	Reduce 42 (Stmt -> ...)
+554	115	return	Reduce 36 (BlockItem -> ...)
+555	114	return	Reduce 33 (BlockItemList -> ...)
+556	106	return	Shift 108
+557	108	;	Reduce 44 (OptExp -> ...)
+558	119	;	Shift 123
+559	123	}	Reduce 40 (Stmt -> ...)
+560	115	}	Reduce 36 (BlockItem -> ...)
+561	114	}	Reduce 33 (BlockItemList -> ...)
+562	106	}	Shift 110
+563	110	$	Reduce 32 (Block -> ...)
+564	103	$	Reduce 22 (FuncDef -> ...)
+565	12	$	Reduce 6 (Unit -> ...)
+566	7	$	Reduce 3 (UnitList -> ...)
+567	2	$	Reduce 2 (CompUnit -> ...)
+568	1	$	ACCEPT!
     Reduction sequence written to output/syntax3.txt
 
 ================ SYNTAX TREE ================
@@ -699,28 +709,16 @@ CompUnit
                       BlockItemList
                         BlockItemList
                           BlockItemList
-                          BlockItem
-                            Decl
-                              ConstDecl
-                                const (CoNsT)
-                                BType
-                                  int (InT)
-                                ConstDefList
-                                  ConstDef
-                                    ID (_X1)
-                                    = (=)
-                                    ConstInit
-                                      ConstExp
-                                        AddExp
-                                          MulExp
-                                            UnaryExp
-                                              PrimaryExp
-                                                Number
-                                                  INT (42)
-                                  , (,)
+                            BlockItemList
+                            BlockItem
+                              Decl
+                                ConstDecl
+                                  const (CoNsT)
+                                  BType
+                                    int (InT)
                                   ConstDefList
                                     ConstDef
-                                      ID (y)
+                                      ID (_X1)
                                       = (=)
                                       ConstInit
                                         ConstExp
@@ -729,7 +727,29 @@ CompUnit
                                               UnaryExp
                                                 PrimaryExp
                                                   Number
-                                                    INT (0)
+                                                    INT (42)
+                                  ; (;)
+                          BlockItem
+                            Decl
+                              VarDecl
+                                BType
+                                  int (int)
+                                VarDefList
+                                  VarDef
+                                    ID (y)
+                                    = (=)
+                                    InitVal
+                                      Exp
+                                        LOrExp
+                                          LAndExp
+                                            EqExp
+                                              RelExp
+                                                AddExp
+                                                  MulExp
+                                                    UnaryExp
+                                                      PrimaryExp
+                                                        Number
+                                                          INT (0)
                                 ; (;)
                         BlockItem
                           Decl
@@ -1236,3 +1256,5 @@ CompUnit
 
 Analysis Success! Syntax Tree generated.
     Syntax tree written to output/tree3.txt
+[5] Generating IR code...
+    IR code written to output/3.ll

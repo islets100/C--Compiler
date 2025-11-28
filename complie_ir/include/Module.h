@@ -166,6 +166,12 @@ public:
    */
   void set_print_name();
   /**
+   * @brief Set the source file name object，设置源文件名
+   *
+   * @param name 源文件名
+   */
+  void set_source_file_name(const std::string &name) { source_file_name_ = name; }
+  /**
    * @brief 打印中间代码
    *
    * @return std::string

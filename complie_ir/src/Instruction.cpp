@@ -43,6 +43,10 @@ bool Instruction::isStaticCalculable() {
     return false;
 }
 
+int Instruction::calculate() {
+    return 0;
+}
+
 BinaryInst::BinaryInst(Type *ty, OpID id, Value *v1, Value *v2, 
                     BasicBlock *bb)
     : Instruction(ty, id, 2, bb)
@@ -52,12 +56,18 @@ BinaryInst::BinaryInst(Type *ty, OpID id, Value *v1, Value *v2,
     // assertValid();
 }
 
-void BinaryInst::assertValid()
-{
-    assert(get_operand(0)->get_type()->is_integer_type());
-    assert(get_operand(1)->get_type()->is_integer_type());
-    assert(static_cast<IntegerType *>(get_operand(0)->get_type())->get_num_bits()
-        == static_cast<IntegerType *>(get_operand(1)->get_type())->get_num_bits());
+void BinaryInst::assertValid() {
+    auto lhs_ty = get_operand(0)->get_type();
+    auto rhs_ty = get_operand(1)->get_type();
+    if (lhs_ty->is_integer_type() && rhs_ty->is_integer_type()) {
+        assert(static_cast<IntegerType *>(lhs_ty)->get_num_bits() ==
+               static_cast<IntegerType *>(rhs_ty)->get_num_bits());
+        return;
+    }
+    if (lhs_ty->is_float_type() && rhs_ty->is_float_type()) {
+        return;
+    }
+    assert(false && "BinaryInst operand type mismatch");
 }
 
 BinaryInst *BinaryInst::create_add(Value *v1, Value *v2, BasicBlock *bb, Module *m)
@@ -83,6 +93,26 @@ BinaryInst *BinaryInst::create_sdiv(Value *v1, Value *v2, BasicBlock *bb, Module
 BinaryInst *BinaryInst::create_mod(Value *v1, Value *v2, BasicBlock *bb, Module *m)
 {
     return new BinaryInst(Type::get_int32_type(m), Instruction::mod, v1, v2, bb);
+}
+
+BinaryInst *BinaryInst::create_fadd(Value *v1, Value *v2, BasicBlock *bb, Module *m)
+{
+    return new BinaryInst(Type::get_float_type(m), Instruction::fadd, v1, v2, bb);
+}
+
+BinaryInst *BinaryInst::create_fsub(Value *v1, Value *v2, BasicBlock *bb, Module *m)
+{
+    return new BinaryInst(Type::get_float_type(m), Instruction::fsub, v1, v2, bb);
+}
+
+BinaryInst *BinaryInst::create_fmul(Value *v1, Value *v2, BasicBlock *bb, Module *m)
+{
+    return new BinaryInst(Type::get_float_type(m), Instruction::fmul, v1, v2, bb);
+}
+
+BinaryInst *BinaryInst::create_fdiv(Value *v1, Value *v2, BasicBlock *bb, Module *m)
+{
+    return new BinaryInst(Type::get_float_type(m), Instruction::fdiv, v1, v2, bb);
 }
 
 bool BinaryInst::isStaticCalculable() {
@@ -161,27 +191,32 @@ std::string UnaryInst::print(){
     return instr_ir;
 }
 */
-CmpInst::CmpInst(Type *ty, CmpOp op, Value *lhs, Value *rhs, 
-            BasicBlock *bb)
-    : Instruction(ty, Instruction::cmp, 2, bb), cmp_op_(op)
-{
+CmpInst::CmpInst(Type *ty, CmpOp op, Value *lhs, Value *rhs, BasicBlock *bb,
+                 bool is_float)
+    : Instruction(ty, is_float ? Instruction::fcmp : Instruction::cmp, 2, bb),
+      cmp_op_(op), is_float_(is_float) {
     set_operand(0, lhs);
     set_operand(1, rhs);
     // assertValid();
 }
 
-void CmpInst::assertValid()
-{
-    assert(get_operand(0)->get_type()->is_integer_type());
-    assert(get_operand(1)->get_type()->is_integer_type());
-    assert(static_cast<IntegerType *>(get_operand(0)->get_type())->get_num_bits()
-        == static_cast<IntegerType *>(get_operand(1)->get_type())->get_num_bits());
+void CmpInst::assertValid() {
+    auto lhs_ty = get_operand(0)->get_type();
+    auto rhs_ty = get_operand(1)->get_type();
+    if (lhs_ty->is_integer_type() && rhs_ty->is_integer_type()) {
+        assert(static_cast<IntegerType *>(lhs_ty)->get_num_bits() ==
+               static_cast<IntegerType *>(rhs_ty)->get_num_bits());
+        return;
+    }
+    if (lhs_ty->is_float_type() && rhs_ty->is_float_type()) {
+        return;
+    }
+    assert(false && "CmpInst operand type mismatch");
 }
 
-CmpInst *CmpInst::create_cmp(CmpOp op, Value *lhs, Value *rhs, 
-                        BasicBlock *bb, Module *m)
-{
-    return new CmpInst(m->get_int1_type(), op, lhs, rhs, bb);
+CmpInst *CmpInst::create_cmp(CmpOp op, Value *lhs, Value *rhs, BasicBlock *bb,
+                             Module *m, bool is_float) {
+    return new CmpInst(m->get_int1_type(), op, lhs, rhs, bb, is_float);
 }
 
 std::string CmpInst::print()
@@ -192,7 +227,7 @@ std::string CmpInst::print()
     instr_ir += " = ";
     instr_ir += this->get_module()->get_instr_op_name( this->get_instr_type() );
     instr_ir += " ";
-    instr_ir += print_cmp_type(this->cmp_op_);
+    instr_ir += print_cmp_type(this->cmp_op_, this->is_float_);
     instr_ir += " ";
     instr_ir += this->get_operand(0)->get_type()->print();
     instr_ir += " ";
@@ -210,6 +245,11 @@ std::string CmpInst::print()
 }
 
 bool CmpInst::isStaticCalculable() {
+    if (is_float_) {
+        auto cl = dynamic_cast<ConstantFloat *>(get_operand(0));
+        auto cr = dynamic_cast<ConstantFloat *>(get_operand(1));
+        return cl != nullptr && cr != nullptr;
+    }
     auto cl = dynamic_cast<ConstantInt *>(get_operand(0));
     auto cr = dynamic_cast<ConstantInt *>(get_operand(1));
     return cl != nullptr && cr != nullptr;
@@ -217,9 +257,10 @@ bool CmpInst::isStaticCalculable() {
 
 int CmpInst::calculate() {
     assert(isStaticCalculable() && "Only static op can be calculated");
-    auto cl = dynamic_cast<ConstantInt *>(get_operand(0))->get_value();
-    auto cr = dynamic_cast<ConstantInt *>(get_operand(1))->get_value();
-    switch (get_cmp_op()) {
+    if (is_float_) {
+        auto cl = dynamic_cast<ConstantFloat *>(get_operand(0))->get_value();
+        auto cr = dynamic_cast<ConstantFloat *>(get_operand(1))->get_value();
+        switch (get_cmp_op()) {
         case GT:
             return cl > cr;
         case GE:
@@ -234,7 +275,28 @@ int CmpInst::calculate() {
             return cl <= cr;
         default:
             assert(0 && "Invalid instr type");
+        }
+    } else {
+        auto cl = dynamic_cast<ConstantInt *>(get_operand(0))->get_value();
+        auto cr = dynamic_cast<ConstantInt *>(get_operand(1))->get_value();
+        switch (get_cmp_op()) {
+        case GT:
+            return cl > cr;
+        case GE:
+            return cl >= cr;
+        case EQ:
+            return cl == cr;
+        case NE:
+            return cl != cr;
+        case LT:
+            return cl < cr;
+        case LE:
+            return cl <= cr;
+        default:
+            assert(0 && "Invalid instr type");
+        }
     }
+    return 0;
 }
 
 CallInst::CallInst(Function *func, std::vector<Value *> args, BasicBlock *bb)

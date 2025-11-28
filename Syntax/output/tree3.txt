@@ -21,28 +21,16 @@ CompUnit
                       BlockItemList
                         BlockItemList
                           BlockItemList
-                          BlockItem
-                            Decl
-                              ConstDecl
-                                const (CoNsT)
-                                BType
-                                  int (InT)
-                                ConstDefList
-                                  ConstDef
-                                    ID (_X1)
-                                    = (=)
-                                    ConstInit
-                                      ConstExp
-                                        AddExp
-                                          MulExp
-                                            UnaryExp
-                                              PrimaryExp
-                                                Number
-                                                  INT (42)
-                                  , (,)
+                            BlockItemList
+                            BlockItem
+                              Decl
+                                ConstDecl
+                                  const (CoNsT)
+                                  BType
+                                    int (InT)
                                   ConstDefList
                                     ConstDef
-                                      ID (y)
+                                      ID (_X1)
                                       = (=)
                                       ConstInit
                                         ConstExp
@@ -51,7 +39,29 @@ CompUnit
                                               UnaryExp
                                                 PrimaryExp
                                                   Number
-                                                    INT (0)
+                                                    INT (42)
+                                  ; (;)
+                          BlockItem
+                            Decl
+                              VarDecl
+                                BType
+                                  int (int)
+                                VarDefList
+                                  VarDef
+                                    ID (y)
+                                    = (=)
+                                    InitVal
+                                      Exp
+                                        LOrExp
+                                          LAndExp
+                                            EqExp
+                                              RelExp
+                                                AddExp
+                                                  MulExp
+                                                    UnaryExp
+                                                      PrimaryExp
+                                                        Number
+                                                          INT (0)
                                 ; (;)
                         BlockItem
                           Decl

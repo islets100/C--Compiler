@@ -1,24 +1,11 @@
 ### 适配词法定义的 CFG 文法列表 (已展开 EBNF)
 
-
-
 #### 0. 起始规则
-
-
-
-
 
 ```
 Program -> compUnit
-```
-
-
 
 #### 1. 编译单元 (compUnit)
-
-
-
- 
 
 ```
 compUnit -> UnitList
@@ -28,26 +15,16 @@ Unit     -> decl
 Unit     -> funcDef
 ```
 
-
-
 #### 2. 声明 (decl)
 
-
-
- 
 
 ```
 decl -> constDecl
 decl -> varDecl
 ```
-
-
-
 #### 3. 常量声明 (constDecl)
 
 
-
- 
 
 ```
 constDecl    -> KW_CONST btype ConstDefList SE_SEMICN
@@ -55,50 +32,29 @@ ConstDefList -> constDef
 ConstDefList -> ConstDefList SE_COMMA constDef
 ```
 
-
-
 #### 4. 基本类型 (btype)
 
-
-
- 
 
 ```
 btype -> KW_INT
 btype -> KW_FLOAT
 ```
 
-
-
 #### 5. 常量定义 (constDef)
 
-
-
- 
 
 ```
 constDef -> ID OP_ASSIGN constInitial
 ```
 
-
-
 #### 6. 常量初值 (constInitial)
-
-
-
- 
 
 ```
 constInitial -> constExp
 ```
 
-
-
 #### 7. 变量声明 (varDecl)
 
-
-
- 
 
 ```
 varDecl    -> btype VarDefList SE_SEMICN
@@ -106,40 +62,21 @@ VarDefList -> varDef
 VarDefList -> VarDefList SE_COMMA varDef
 ```
 
-
-
 #### 8. 变量定义 (varDef)
-
-
-
- 
 
 ```
 varDef -> ID
 varDef -> ID OP_ASSIGN initVal
 ```
 
-
-
 #### 9. 变量初值 (initVal)
-
-
-
- 
 
 ```
 initVal -> exp
-```
-
-
 
 #### 10. 函数定义 (funcDef) 【关键修改】
 
-
-
 **注意**：因为 `main` 是关键字 `<KW, 5>`，它不会被识别为 `ID`。这里必须允许函数名是 `ID` **或者** `KW_MAIN`。
-
- 
 
 ```
 funcDef        -> funcType FuncName SE_LPAREN OptFuncFParams SE_RPAREN block
@@ -150,9 +87,6 @@ FuncName       -> KW_MAIN
 OptFuncFParams -> funcFParams
 OptFuncFParams -> ε
 ```
-
-
-
 #### 11. 函数类型 (funcType)
 
 
