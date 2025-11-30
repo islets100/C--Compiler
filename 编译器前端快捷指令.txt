@@ -8,3 +8,5 @@ g++ Lex_Analysis.cpp -o Lex_Analysis
 cd Syntax
 g++ main.cpp GrammarAnalyzer.cpp SLRTable.cpp Parser.cpp ReductionSequenceLogger.cpp -o Syntaxer
 ./Syntaxer
+
+## 中间代码
