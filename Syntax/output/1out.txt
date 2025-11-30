@@ -293,203 +293,204 @@ Step	State	Input	Action
 194	7	$	Reduce 3 (UnitList -> ...)
 195	2	$	Reduce 2 (CompUnit -> ...)
 196	1	$	ACCEPT!
-    Grammar derivation tree written to output/syntax1.txt
+    Reduction sequence written to output/syntax1.txt
 
-================ GRAMMAR DERIVATION TREE ================
-CompUnit -> UnitList
-  UnitList -> UnitList Unit
-    UnitList -> ε
-    Unit -> FuncDef
-      FuncDef -> BType FuncName ((() OptFParams )()) Block
-        BType -> int(int)
+================ SYNTAX TREE ================
+CompUnit
+  UnitList
+    UnitList
+    Unit
+      FuncDef
+        BType
           int (int)
-        FuncName -> main(main)
+        FuncName
           main (main)
         ( (()
-        OptFParams -> ε
+        OptFParams
         ) ())
-        Block -> {({) BlockItemList }(})
+        Block
           { ({)
-          BlockItemList -> BlockItemList BlockItem
-            BlockItemList -> BlockItemList BlockItem
-              BlockItemList -> BlockItemList BlockItem
-                BlockItemList -> ε
-                BlockItem -> Decl
-                  Decl -> VarDecl
-                    VarDecl -> BType VarDefList ;(;)
-                      BType -> int(int)
+          BlockItemList
+            BlockItemList
+              BlockItemList
+                BlockItemList
+                BlockItem
+                  Decl
+                    VarDecl
+                      BType
                         int (int)
-                      VarDefList -> VarDef ,(,) VarDefList
-                        VarDef -> ID(a) =(=) InitVal
+                      VarDefList
+                        VarDef
                           ID (a)
                           = (=)
-                          InitVal -> Exp
-                            Exp -> LOrExp
-                              LOrExp -> LAndExp
-                                LAndExp -> EqExp
-                                  EqExp -> RelExp
-                                    RelExp -> AddExp
-                                      AddExp -> MulExp
-                                        MulExp -> UnaryExp
-                                          UnaryExp -> PrimaryExp
-                                            PrimaryExp -> Number
-                                              Number -> INT(1)
+                          InitVal
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
                                                 INT (1)
                         , (,)
-                        VarDefList -> VarDef
-                          VarDef -> ID(b) =(=) InitVal
+                        VarDefList
+                          VarDef
                             ID (b)
                             = (=)
-                            InitVal -> Exp
-                              Exp -> LOrExp
-                                LOrExp -> LAndExp
-                                  LAndExp -> EqExp
-                                    EqExp -> RelExp
-                                      RelExp -> AddExp
-                                        AddExp -> MulExp
-                                          MulExp -> UnaryExp
-                                            UnaryExp -> PrimaryExp
-                                              PrimaryExp -> Number
-                                                Number -> INT(2)
+                            InitVal
+                              Exp
+                                LOrExp
+                                  LAndExp
+                                    EqExp
+                                      RelExp
+                                        AddExp
+                                          MulExp
+                                            UnaryExp
+                                              PrimaryExp
+                                                Number
                                                   INT (2)
                       ; (;)
-              BlockItem -> Stmt
-                Stmt -> LVal =(=) Exp ;(;)
-                  LVal -> ID(a)
+              BlockItem
+                Stmt
+                  LVal
                     ID (a)
                   = (=)
-                  Exp -> LOrExp
-                    LOrExp -> LAndExp
-                      LAndExp -> EqExp
-                        EqExp -> RelExp
-                          RelExp -> AddExp
-                            AddExp -> AddExp -(-) MulExp
-                              AddExp -> AddExp +(+) MulExp
-                                AddExp -> MulExp
-                                  MulExp -> UnaryExp
-                                    UnaryExp -> PrimaryExp
-                                      PrimaryExp -> LVal
-                                        LVal -> ID(a)
+                  Exp
+                    LOrExp
+                      LAndExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              AddExp
+                                AddExp
+                                  MulExp
+                                    UnaryExp
+                                      PrimaryExp
+                                        LVal
                                           ID (a)
                                 + (+)
-                                MulExp -> UnaryExp
-                                  UnaryExp -> PrimaryExp
-                                    PrimaryExp -> LVal
-                                      LVal -> ID(b)
+                                MulExp
+                                  UnaryExp
+                                    PrimaryExp
+                                      LVal
                                         ID (b)
                               - (-)
-                              MulExp -> UnaryExp
-                                UnaryExp -> PrimaryExp
-                                  PrimaryExp -> Number
-                                    Number -> INT(1)
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    Number
                                       INT (1)
                   ; (;)
-            BlockItem -> Stmt
-              Stmt -> if(if) ((() Cond )()) Stmt else(else) Stmt
+            BlockItem
+              Stmt
                 if (if)
                 ( (()
-                Cond -> LOrExp
-                  LOrExp -> LAndExp
-                    LAndExp -> EqExp
-                      EqExp -> EqExp ==(==) RelExp
-                        EqExp -> RelExp
-                          RelExp -> AddExp
-                            AddExp -> MulExp
-                              MulExp -> UnaryExp
-                                UnaryExp -> PrimaryExp
-                                  PrimaryExp -> LVal
-                                    LVal -> ID(a)
+                Cond
+                  LOrExp
+                    LAndExp
+                      EqExp
+                        EqExp
+                          RelExp
+                            AddExp
+                              MulExp
+                                UnaryExp
+                                  PrimaryExp
+                                    LVal
                                       ID (a)
                         == (==)
-                        RelExp -> AddExp
-                          AddExp -> MulExp
-                            MulExp -> UnaryExp
-                              UnaryExp -> PrimaryExp
-                                PrimaryExp -> Number
-                                  Number -> INT(2)
+                        RelExp
+                          AddExp
+                            MulExp
+                              UnaryExp
+                                PrimaryExp
+                                  Number
                                     INT (2)
                 ) ())
-                Stmt -> Block
-                  Block -> {({) BlockItemList }(})
+                Stmt
+                  Block
                     { ({)
-                    BlockItemList -> BlockItemList BlockItem
-                      BlockItemList -> ε
-                      BlockItem -> Stmt
-                        Stmt -> return(return) OptExp ;(;)
+                    BlockItemList
+                      BlockItemList
+                      BlockItem
+                        Stmt
                           return (return)
-                          OptExp -> Exp
-                            Exp -> LOrExp
-                              LOrExp -> LAndExp
-                                LAndExp -> EqExp
-                                  EqExp -> RelExp
-                                    RelExp -> AddExp
-                                      AddExp -> MulExp
-                                        MulExp -> UnaryExp
-                                          UnaryExp -> PrimaryExp
-                                            PrimaryExp -> Number
-                                              Number -> INT(0)
+                          OptExp
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
                                                 INT (0)
                           ; (;)
                     } (})
                 else (else)
-                Stmt -> Block
-                  Block -> {({) BlockItemList }(})
+                Stmt
+                  Block
                     { ({)
-                    BlockItemList -> BlockItemList BlockItem
-                      BlockItemList -> BlockItemList BlockItem
-                        BlockItemList -> ε
-                        BlockItem -> Stmt
-                          Stmt -> LVal =(=) Exp ;(;)
-                            LVal -> ID(b)
+                    BlockItemList
+                      BlockItemList
+                        BlockItemList
+                        BlockItem
+                          Stmt
+                            LVal
                               ID (b)
                             = (=)
-                            Exp -> LOrExp
-                              LOrExp -> LAndExp
-                                LAndExp -> EqExp
-                                  EqExp -> RelExp
-                                    RelExp -> AddExp
-                                      AddExp -> MulExp
-                                        MulExp -> MulExp %(%) UnaryExp
-                                          MulExp -> MulExp /(/) UnaryExp
-                                            MulExp -> MulExp *(*) UnaryExp
-                                              MulExp -> UnaryExp
-                                                UnaryExp -> PrimaryExp
-                                                  PrimaryExp -> LVal
-                                                    LVal -> ID(b)
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          MulExp
+                                            MulExp
+                                              MulExp
+                                                UnaryExp
+                                                  PrimaryExp
+                                                    LVal
                                                       ID (b)
                                               * (*)
-                                              UnaryExp -> PrimaryExp
-                                                PrimaryExp -> Number
-                                                  Number -> INT(2)
+                                              UnaryExp
+                                                PrimaryExp
+                                                  Number
                                                     INT (2)
                                             / (/)
-                                            UnaryExp -> PrimaryExp
-                                              PrimaryExp -> Number
-                                                Number -> INT(1)
+                                            UnaryExp
+                                              PrimaryExp
+                                                Number
                                                   INT (1)
                                           % (%)
-                                          UnaryExp -> PrimaryExp
-                                            PrimaryExp -> Number
-                                              Number -> INT(2)
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
                                                 INT (2)
                             ; (;)
-                      BlockItem -> Stmt
-                        Stmt -> return(return) OptExp ;(;)
+                      BlockItem
+                        Stmt
                           return (return)
-                          OptExp -> Exp
-                            Exp -> LOrExp
-                              LOrExp -> LAndExp
-                                LAndExp -> EqExp
-                                  EqExp -> RelExp
-                                    RelExp -> AddExp
-                                      AddExp -> MulExp
-                                        MulExp -> UnaryExp
-                                          UnaryExp -> PrimaryExp
-                                            PrimaryExp -> Number
-                                              Number -> INT(1)
+                          OptExp
+                            Exp
+                              LOrExp
+                                LAndExp
+                                  EqExp
+                                    RelExp
+                                      AddExp
+                                        MulExp
+                                          UnaryExp
+                                            PrimaryExp
+                                              Number
                                                 INT (1)
                           ; (;)
                     } (})
           } (})
 
 Analysis Success! Syntax Tree generated.
+    Syntax tree written to output/tree1.txt

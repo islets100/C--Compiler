@@ -1,0 +1,10 @@
+## 在fianllab目录下运行以下指令
+## 词法：
+cd lex
+g++ Lex_Analysis.cpp -o Lex_Analysis
+./Lex_Analysis
+
+## 语法：
+cd Syntax
+g++ main.cpp GrammarAnalyzer.cpp SLRTable.cpp Parser.cpp ReductionSequenceLogger.cpp -o Syntaxer
+./Syntaxer

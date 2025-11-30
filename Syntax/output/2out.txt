@@ -1137,3 +1137,4 @@ CompUnit
           } (})
 
 Analysis Success! Syntax Tree generated.
+    Syntax tree written to output/tree2.txt

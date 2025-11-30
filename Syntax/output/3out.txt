@@ -1256,5 +1256,3 @@ CompUnit
 
 Analysis Success! Syntax Tree generated.
     Syntax tree written to output/tree3.txt
-[5] Generating IR code...
-    IR code written to output/3.ll
