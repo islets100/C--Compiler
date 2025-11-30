@@ -1,0 +1,22 @@
+int main() {
+    int a = 10, b = 20, c = 30;
+    int res = 0;
+    if (a < b) 
+        if (b < c)
+            res = 1;
+        else 
+            res = 2; 
+    if (a < b || b > c && a == 10) {
+        res = res + 100;
+    }
+    if (res > 0) {
+        int deep = 5;
+        if (deep != 0) {
+            res = res * 2;
+        }
+    } else {
+        res = 0;
+    }
+
+    return res;
+}

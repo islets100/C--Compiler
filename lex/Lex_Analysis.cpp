@@ -504,6 +504,10 @@ void lexical_analysis(){
     lexcial("test/test2.sy", minDFA,"2");
     lexcial("test/test3.sy", minDFA,"3");
     lexcial("test/test4.sy", minDFA,"4");
+    lexcial("test/test5.sy", minDFA,"5");
+    lexcial("test/test6.sy", minDFA,"6");
+    lexcial("test/test7.sy", minDFA,"7");
+    lexcial("test/test8.sy", minDFA,"8");
 
 }
 

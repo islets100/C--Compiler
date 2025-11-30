@@ -1,0 +1,16 @@
+int foo(int val) {
+    return val * 2;
+}
+
+int main() {
+    int a = 5;
+    int b = 10;
+    int c = 2;
+    int result = 0;
+
+    result = a + b * c / (a - 2) - foo(a) % 3 * b;
+
+    int logic_val = (a > b) == 0;
+
+    return result;
+}

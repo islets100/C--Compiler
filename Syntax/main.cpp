@@ -237,7 +237,7 @@
      // --- 输入与输出文件名配置 ---
      // 从 lex/output/ 目录读取词法分析结果文件
      // 目前默认读取 lex1.txt，你可以手动改成 lex2.txt / lex3.txt 等
-     string lexFilename = "../lex/output/lex4.txt";
+     string lexFilename = "../lex/output/lex8.txt";
      // 从文件名中提取数字部分，用于生成类似 "1out.txt" 的输出文件名
      string numPart;
      for (char ch : lexFilename) {
