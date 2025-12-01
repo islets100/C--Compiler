@@ -1,4 +1,0 @@
-About to create IRGenerator
-IRGenerator created, about to call generate
-Calling irGen.generate with filename: output/4.ll
-irGen.generate returned: true
