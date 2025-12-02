@@ -49,48 +49,42 @@ main_ENTRY:
     %op28 = zext i1 %op26 to i32
     %op29 = add i32 %op27, %op28
     %op30 = icmp ne i32 %op29, 0
-    br i1 %op30, label %if_then, label %if_else
-if_then:
+    br i1 %op30, label %if_then0, label %if_else0
+if_then0:
     %op32 = load i32, i32* %op6
     %op33 = add i32 %op32, 1
     store i32 %op33, i32* %op6
-    br label %if_merge
-if_else:
+    br label %if_merge0
+if_else0:
     %op35 = load i32, i32* %op6
     %op36 = sub i32 %op35, 1
     store i32 %op36, i32* %op6
-    br label %if_merge
-if_merge:
-    %op38 = load i32, i32* %op6
-    %op39 = add i32 %op38, 1
-    store i32 %op39, i32* %op6
-    %op40 = load i32, i32* %op6
-    %op41 = sub i32 %op40, 1
-    store i32 %op41, i32* %op6
+    br label %if_merge0
+if_merge0:
+    %op38 = load i32, i32* %op5
+    %op39 = load i32, i32* %op6
+    %op40 = icmp sgt i32 %op38, %op39
+    %op41 = zext i1 %op40 to i32
+    store i32 %op41, i32* %op5
     %op42 = load i32, i32* %op5
     %op43 = load i32, i32* %op6
-    %op44 = icmp sgt i32 %op42, %op43
+    %op44 = icmp slt i32 %op42, %op43
     %op45 = zext i1 %op44 to i32
     store i32 %op45, i32* %op5
     %op46 = load i32, i32* %op5
     %op47 = load i32, i32* %op6
-    %op48 = icmp slt i32 %op46, %op47
+    %op48 = icmp eq i32 %op46, %op47
     %op49 = zext i1 %op48 to i32
     store i32 %op49, i32* %op5
     %op50 = load i32, i32* %op5
     %op51 = load i32, i32* %op6
-    %op52 = icmp eq i32 %op50, %op51
+    %op52 = icmp sle i32 %op50, %op51
     %op53 = zext i1 %op52 to i32
     store i32 %op53, i32* %op5
     %op54 = load i32, i32* %op5
     %op55 = load i32, i32* %op6
-    %op56 = icmp sle i32 %op54, %op55
+    %op56 = icmp sge i32 %op54, %op55
     %op57 = zext i1 %op56 to i32
     store i32 %op57, i32* %op5
-    %op58 = load i32, i32* %op5
-    %op59 = load i32, i32* %op6
-    %op60 = icmp sge i32 %op58, %op59
-    %op61 = zext i1 %op60 to i32
-    store i32 %op61, i32* %op5
     ret void
 }

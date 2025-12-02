@@ -23,10 +23,10 @@ main_ENTRY:
     store i32 %op6, i32* %op1
     %op7 = load i32, i32* %op1
     %op8 = icmp eq i32 %op7, 2
-    br i1 %op8, label %if_then, label %if_else
-if_then:
+    br i1 %op8, label %if_then0, label %if_else0
+if_then0:
     ret i32 0
-if_else:
+if_else0:
     %op11 = load i32, i32* %op2
     %op12 = mul i32 %op11, 2
     %op13 = sdiv i32 %op12, 1

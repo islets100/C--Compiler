@@ -6,14 +6,14 @@
 #include <unordered_map>
 #include <vector>
 
-#include "GrammarAnalyzer.h"
-#include "SyntaxTree.h"
+#include "../../Syntax/GrammarAnalyzer.h"
+#include "../../Syntax/SyntaxTree.h"
 
-#include "../complie_ir/include/IRbuilder.h"
-#include "../complie_ir/include/Module.h"
-#include "../complie_ir/include/Function.h"
-#include "../complie_ir/include/BasicBlock.h"
-#include "../complie_ir/include/Constant.h"
+#include "IRbuilder.h"
+#include "Module.h"
+#include "Function.h"
+#include "BasicBlock.h"
+#include "Constant.h"
 
 class IRGenerator {
 public:
