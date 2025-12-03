@@ -508,7 +508,7 @@ void lexical_analysis(){
     lexcial("test/test6.sy", minDFA,"6");
     lexcial("test/test7.sy", minDFA,"7");
     lexcial("test/test8.sy", minDFA,"8");
-
+    lexcial("test/test0.sy", minDFA,"0");
 }
 
 int main(){

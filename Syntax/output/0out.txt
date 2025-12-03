@@ -1,0 +1,158 @@
+[1] Initializing Grammar...
+
+[DEBUG] Printing FIRST and FOLLOW sets...
+
+===== FIRST SETS =====
+Program        : { eps int void const float }
+CompUnit       : { eps int void const float }
+UnitList       : { eps int void const float }
+Unit           : { int void const float }
+Decl           : { int const float }
+ConstDecl      : { const }
+VarDecl        : { int float }
+ConstDefList   : { ID }
+BType          : { int float }
+ConstDef       : { ID }
+ConstInit      : { ID INT FLOAT + - ( }
+VarDefList     : { ID }
+VarDef         : { ID }
+InitVal        : { ID INT FLOAT + - ( }
+FuncDef        : { int void float }
+FuncName       : { ID main }
+OptFParams     : { eps int float }
+FuncType       : { void }
+FuncFParams    : { int float }
+FuncFParam     : { int float }
+Block          : { { }
+BlockItemList  : { eps ID INT FLOAT int return const float if + - ( { ; }
+BlockItem      : { ID INT FLOAT int return const float if + - ( { ; }
+Stmt           : { ID INT FLOAT return if + - ( { ; }
+OptExp         : { eps ID INT FLOAT + - ( }
+Exp            : { ID INT FLOAT + - ( }
+Cond           : { ID INT FLOAT + - ( }
+LVal           : { ID }
+PrimaryExp     : { ID INT FLOAT ( }
+Number         : { INT FLOAT }
+UnaryExp       : { ID INT FLOAT + - ( }
+OptRParams     : { eps ID INT FLOAT + - ( }
+UnaryOp        : { + - }
+FuncRParams    : { ID INT FLOAT + - ( }
+MulExp         : { ID INT FLOAT + - ( }
+AddExp         : { ID INT FLOAT + - ( }
+RelExp         : { ID INT FLOAT + - ( }
+EqExp          : { ID INT FLOAT + - ( }
+LAndExp        : { ID INT FLOAT + - ( }
+LOrExp         : { ID INT FLOAT + - ( }
+ConstExp       : { ID INT FLOAT + - ( }
+
+===== FOLLOW SETS =====
+Program        : { $ }
+CompUnit       : { $ }
+UnitList       : { $ int void const float }
+Unit           : { $ int void const float }
+Decl           : { $ ID INT FLOAT int void return const float if + - ( { } ; }
+ConstDecl      : { $ ID INT FLOAT int void return const float if + - ( { } ; }
+VarDecl        : { $ ID INT FLOAT int void return const float if + - ( { } ; }
+ConstDefList   : { ; }
+BType          : { ID main }
+ConstDef       : { ; , }
+ConstInit      : { ; , }
+VarDefList     : { ; }
+VarDef         : { ; , }
+InitVal        : { ; , }
+FuncDef        : { $ int void const float }
+FuncName       : { ( }
+OptFParams     : { ) }
+FuncType       : { ID main }
+FuncFParams    : { ) , }
+FuncFParam     : { ) , }
+Block          : { $ ID INT FLOAT int void return const float if else + - ( { } ; }
+BlockItemList  : { ID INT FLOAT int return const float if + - ( { } ; }
+BlockItem      : { ID INT FLOAT int return const float if + - ( { } ; }
+Stmt           : { ID INT FLOAT int return const float if else + - ( { } ; }
+OptExp         : { ; }
+Exp            : { ) ; , }
+Cond           : { ) }
+LVal           : { + - * / % = > < == <= >= != && || ) ; , }
+PrimaryExp     : { + - * / % > < == <= >= != && || ) ; , }
+Number         : { + - * / % > < == <= >= != && || ) ; , }
+UnaryExp       : { + - * / % > < == <= >= != && || ) ; , }
+OptRParams     : { ) }
+UnaryOp        : { ID INT FLOAT + - ( }
+FuncRParams    : { ) , }
+MulExp         : { + - * / % > < == <= >= != && || ) ; , }
+AddExp         : { + - > < == <= >= != && || ) ; , }
+RelExp         : { > < == <= >= != && || ) ; , }
+EqExp          : { == != && || ) ; , }
+LAndExp        : { && || ) ; , }
+LOrExp         : { || ) ; , }
+ConstExp       : { ; , }
+---------------------------------------
+
+[3] Building SLR Table...
+    SLR Table generated. Total States: 132
+[3] Loading Tokens from ../lex/output/lex0.txt...
+    Loaded 19 tokens.
+[4] Starting Parser...
+
+================ PARSING PROCESS ================
+Step	State	Input	Action
+1	0	int	Reduce 4 (UnitList -> ...)
+2	2	int	Shift 3
+3	3	main	Reduce 12 (BType -> ...)
+4	11	main	Shift 16
+5	16	(	Reduce 25 (FuncName -> ...)
+6	19	(	Shift 28
+7	28	)	Reduce 27 (OptFParams -> ...)
+8	55	)	Shift 80
+9	80	{	Shift 100
+10	100	int	Reduce 34 (BlockItemList -> ...)
+11	106	int	Shift 3
+12	3	ID	Reduce 12 (BType -> ...)
+13	112	ID	Shift 52
+14	52	=	Shift 25
+15	25	INT	Shift 34
+16	34	;	Reduce 51 (Number -> ...)
+17	43	;	Reduce 50 (PrimaryExp -> ...)
+18	42	;	Reduce 53 (UnaryExp -> ...)
+19	44	;	Reduce 62 (MulExp -> ...)
+20	46	;	Reduce 66 (AddExp -> ...)
+21	47	;	Reduce 69 (RelExp -> ...)
+22	48	;	Reduce 74 (EqExp -> ...)
+23	49	;	Reduce 77 (LAndExp -> ...)
+24	50	;	Reduce 79 (LOrExp -> ...)
+25	51	;	Reduce 45 (Exp -> ...)
+26	40	;	Reduce 21 (InitVal -> ...)
+27	39	;	Reduce 20 (VarDef -> ...)
+28	18	;	Reduce 17 (VarDefList -> ...)
+29	17	;	Shift 26
+
+[词法错误] 行号 4, 列号 5: 无法识别的字符 '!'
+          该字符将被跳过，继续分析后续内容。
+
+[词法错误] 行号 4, 列号 7: 无法识别的字符 '&'
+          该字符将被跳过，继续分析后续内容。
+
+[词法错误] 行号 4, 列号 9: 无法识别的字符 '#'
+          该字符将被跳过，继续分析后续内容。
+30	26	return	Reduce 16 (VarDecl -> ...)
+31	10	return	Reduce 8 (Decl -> ...)
+32	111	return	Reduce 35 (BlockItem -> ...)
+33	114	return	Reduce 33 (BlockItemList -> ...)
+34	106	return	Shift 108
+
+========== 语法错误详情 ==========
+[错误位置] 行号: 15
+[错误符号] 文本: '!='
+[符号类型] ID: 25, 原始类别: 'OP', 符号名: '!='
+[当前状态] State 108
+[期望符号] 在当前状态 108 下，可以接受以下符号:
+            'ID' 'INT' 'FLOAT' '+' '-' 
+            '(' ';' 
+[错误原因] 语法分析阶段：当前符号 '!=' (类型: !=) 在当前语法状态下不被接受
+===================================
+
+Syntax Error at line 15: Unexpected token '!='
+    Reduction sequence (with error) written to output/syntax0.txt
+
+Analysis Failed.
