@@ -11,7 +11,7 @@ if not exist "lex\Lex_Analysis.exe" (
     exit /b 1
 )
 
-if not exist "Syntax\compiler_ir.exe" (
+if not exist "Syntax\Syntaxer.exe" (
     echo 错误：语法分析器未编译，请先运行 build.bat
     pause
     exit /b 1
@@ -30,9 +30,9 @@ cd ..
 echo 词法分析完成！
 echo.
 
-echo [2/2] 运行语法分析器（含IR生成）...
+echo [2/2] 运行语法分析器...
 cd Syntax
-compiler_ir.exe
+Syntaxer.exe
 cd ..
 
 REM 等待一下确保文件写入完成
@@ -56,6 +56,4 @@ echo 词法分析结果: lex\output\lex*.txt
 echo 语法分析日志: Syntax\output\*out.txt
 echo 规约序列: Syntax\output\syntax*.txt
 echo 语法树: Syntax\output\tree*.txt
-echo IR代码: Syntax\output\*.ll
 pause
-

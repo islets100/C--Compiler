@@ -1,6 +1,6 @@
 # 词法-语法分析器使用
 
-## 大概说一下完成情况
+## 总体情况
 
 项目的前两部分目前是这样，实现了一个完整的编译器前端工具链，包括：
 - **词法分析器**：将源程序转换为词法单元（Token）序列
@@ -21,7 +21,7 @@
   - ✅**修改文法**
   - ✅**对词法传来的lex文件进行解析**，**建立 Token 映射**
   - ✅**`productions` (项目集规范族的基础) 和 `first/followSet` 的构建**
-  - ❌**构造 LR(0) 项目集与 SLR 分析表**(Action/Goto Table)
+  - √ **构造 LR(0) 项目集与 SLR 分析表**(Action/Goto Table)
   - ✅**语法分析驱动程序 (Parser Driver)**：分析输出规约过程
   - ✅**规约序列提取**：从上一步的里面提取老师要求的格式的规约序列
 
@@ -35,9 +35,9 @@ Finallab/
 │   ├── Lex_Analysis.cpp         # 词法分析器主程序
 │   ├── Lex_Analysis.exe         # 编译后的可执行文件
 │   ├── test/                    # 测试用例目录
-│   │   ├── test1.sy ~ test4.sy # 测试源文件
+│   │   ├── test0.sy ~ test8.sy # 测试源文件
 │   └── output/                  # 词法分析输出目录
-│       └── lex1.txt ~ lex4.txt  # 词法分析结果（作业要求）
+│       └── lex0.txt ~ lex8.txt  # 词法分析结果（作业要求）
 │
 ├── Syntax/                       # 语法分析器目录
 │   ├── main.cpp                 # 语法分析器主程序
@@ -46,13 +46,11 @@ Finallab/
 │   ├── Parser.cpp/h             # 语法分析器核心
 │   ├── ReductionSequenceLogger.cpp/h  # 规约序列记录器
 │   ├── SyntaxTree.h             # 语法树结构
-│   ├── IRGenerator.cpp/h        # 中间代码生成器
-│   ├── compiler_ir.exe          # 编译后的可执行文件（包含IR生成）
+│   ├── Syntaxer.exe          # 编译后的可执行文件
 │   └── output/                  # 语法分析输出目录
-│       ├── 1out.txt ~ 4out.txt  # 完整分析日志
-│       ├── syntax1.txt ~ syntax4.txt  # 规约序列（作业要求）
-│       ├── tree1.txt ~ tree4.txt      # 语法树（中间代码生成基于此）
-│       └── 1.ll ~ 4.ll                 # LLVM IR 中间代码（作业要求）
+│       ├── 0out.txt ~ 8out.txt  # 完整分析日志
+│       ├── syntax1.txt ~ syntax8.txt  # 规约序列（作业要求）
+│       └── tree1.txt ~ tree8.txt      # 语法树（中间代码生成基于此）
 │
 ├── complie_ir/                   # 中端代码库（提供的框架）
 │   ├── include/                  # 头文件目录
@@ -62,12 +60,14 @@ Finallab/
 │   │   ├── Instruction.h         # 指令类
 │   │   ├── IRbuilder.h           # IR 构建器
 │   │   └── ...
-│   └── src/                      # 源文件目录
+│   ├── src/                      # 源文件目录
+│   └── output/                  # 语法分析输出目录
+│       └── 1.ll ~ 8.ll     # 中间代码文件
 │
 ├── build.bat                    # Windows 编译脚本
 ├── run.bat                      # Windows 运行脚本
 ├── Makefile                     # Linux/Mac 构建文件
-└── 词法-语法器.md               # 本说明文档
+└── readme.md               # 本说明文档
 ```
 
  
@@ -87,7 +87,7 @@ Finallab/
 这将编译：
 
 1. 词法分析器 → `lex/Lex_Analysis.exe`
-2. 语法分析器（含IR生成） → `Syntax/compiler_ir.exe`
+2. 语法分析器（含IR生成） → `Syntax/Syntaxer.exe`
 
 #### Linux/Mac 系统
 
@@ -116,7 +116,7 @@ run.bat
 
 这将自动：
 
-1. 运行词法分析器（处理 `lex/test/test*.sy` 文件）
+1. 运行词法分析器（处理全部`lex/test/test*.sy` 文件）
 2. 运行语法分析器（读取词法分析结果，生成语法树）
 3. 生成中间代码（遍历语法树，生成 LLVM IR）
 4. 生成所有输出文件
@@ -142,7 +142,7 @@ make run-grammar  # 仅运行语法分析器（需要先运行词法分析）
 
 ### 1.词法分析输出
 
-**位置**：`lex/output/lex1.txt` ~ `lex4.txt`
+**位置**：`lex/output/lex0.txt` ~ `lex8.txt`
 
 **格式**：
 
@@ -172,7 +172,7 @@ main	<KW,5>
 
 #### 1. 完整分析日志 (`*out.txt`)
 
-**位置**：`Syntax/output/1out.txt` ~ `4out.txt`
+**位置**：`Syntax/output/0out.txt` ~ `8out.txt`
 
 **内容**：
 
@@ -373,13 +373,13 @@ main	<KW,5>
             } (})
   ```
 
-​	❗ **所以，不管你遇到了什么问题，都可以在日志out文件里先找找答案，因为我也不确定这个语法器是完全正确的，中间代码生成如果需要调整语法器，有问题要要修改可以借助out日志文件**
+​	❗ **所以，不管你遇到了什么问题，都可以在日志out文件里先找找答案，中间代码生成如果需要调整语法器，有问题要要修改可以借助out日志文件**
 
 #### 2. 规约序列 (`syntax*.txt`)
 
 这个是用来交作业的。就是从out里提取的
 
-**位置**：`Syntax/output/syntax1.txt` ~ `syntax4.txt`
+**位置**：`Syntax/output/syntax1.txt` ~ `syntax8.txt`
 
 **格式**：
 
@@ -468,7 +468,7 @@ VarDecl                  <-- 顶层：这是一个“变量声明”结构
 
 中间代码生成器会生成 LLVM IR 格式的中间代码文件。
 
-**位置**：`Syntax/output/1.ll` ~ `4.ll`
+**位置**：`compile_ir/output/1.ll` ~ `4.ll`
 
 **格式**：标准的 LLVM IR 格式
 
