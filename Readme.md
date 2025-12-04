@@ -911,7 +911,7 @@ cd lex
 del Lex_Analysis.exe
 cd ..\Syntax
 del compiler_ir.exe
-del compiler_test.exe
+del Syntaxer.exe
 cd ..
 ```
 
